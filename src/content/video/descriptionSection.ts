@@ -14,6 +14,7 @@ const removeDescription = (): void => {
         observedRoot = document.querySelector(WATCH_ROOT);
     }
 
+    // Not on a watch page right now, so do not do anything
     if (!observedRoot) return;
 
     for (const descriptionElement of observedRoot.querySelectorAll(HIDE_DESCRIPTION_CSS)) {
@@ -29,6 +30,15 @@ const scheduleRemoval = (): void => {
 };
 
 const onDomMutations = (records: MutationRecord[]): void => {
+    /* Sorry for that horrible comments
+    onDomMutations only reacts when nodes were added, which means 
+    removals and attribute changes don't trigger a re-scan. 
+    
+    Sometimes YouTube can add the description element dynamically after initial paint, 
+    so the observer catches that insertion and starts a removal process,
+    so everything is being kept clean.
+    */
+
     if (records.some((record) => record.addedNodes.length > 0)) {
         scheduleRemoval();
     }
