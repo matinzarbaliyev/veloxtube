@@ -17,7 +17,7 @@ const removeDescription = (): void => {
     // Not on a watch page right now, so do not do anything
     if (!observedRoot) return;
 
-    for (const descriptionElement of observedRoot.querySelectorAll(HIDE_DESCRIPTION_CSS)) {
+    for (const descriptionElement of observedRoot.querySelectorAll(DESCRIPTION)) {
         descriptionElement.remove();
     }
 };
@@ -30,7 +30,9 @@ const scheduleRemoval = (): void => {
 };
 
 const onDomMutations = (records: MutationRecord[]): void => {
-    /* Sorry for that horrible comments
+    /* 
+    Sorry for that horrible comments
+    
     onDomMutations only reacts when nodes were added, which means 
     removals and attribute changes don't trigger a re-scan. 
     
