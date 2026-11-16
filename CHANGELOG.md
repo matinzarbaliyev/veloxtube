@@ -26,3 +26,4 @@
 ## 16 November 2026
 
 - **Related Videos Removal** — Hides related videos on the video page.
+- **Comments under Video** — Hides comments under the video on the video page.
