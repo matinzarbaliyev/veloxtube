@@ -12,6 +12,7 @@ const KEYS = [
     "videoThanksButtonEnabled",
     "videoShareButtonEnabled",
     "videoShowRelatedVideosEnabled",
+    "videoShowCommentsEnabled",
     // ====================== //
 
     "channelJoinButtonEnabled",
@@ -37,6 +38,7 @@ const DEFAULTS: Record<Key, boolean> = {
     videoThanksButtonEnabled: true,
     videoShareButtonEnabled: true,
     videoShowRelatedVideosEnabled: true,
+    videoShowCommentsEnabled: true,
 
     channelJoinButtonEnabled: true,
     topicBarEnabled: true,
