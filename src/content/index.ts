@@ -12,6 +12,7 @@ import { initVideoThanksButton } from "./video/showSupport";
 import { initVideoShareButton } from "./video/shareButton";
 import { initRelatedVideos } from "./video/relatedVideos";
 import { initComments } from "./video/commentsSection";
+import { initDesription } from "./video/descriptionSection";
 // ========================================================= //
 
 import { initChannelJoinButton } from "./channel/joinButton";
@@ -38,6 +39,7 @@ const KEYS = [
     "videoShareButtonEnabled",
     "videoShowRelatedVideosEnabled",
     "videoShowCommentsEnabled",
+    "videoShowDescriptionEnabled",
     // ====================== //
 
 
@@ -57,13 +59,14 @@ type Flags = {
     notificationBellEnabled: boolean;
     micButtonEnabled: boolean;
 
-    // ========= VIDEO PAGE ========= //
+    // =========== VIDEO PAGE =========== //
     videoJoinButtonEnabled: boolean;
     videoThanksButtonEnabled: boolean;
     videoShareButtonEnabled: boolean;
     videoShowRelatedVideosEnabled: boolean;
     videoShowCommentsEnabled: boolean;
-    // ============================== //
+    videoShowDescriptionEnabled: boolean
+    // ================================== //
 
 
     channelJoinButtonEnabled: boolean;
@@ -88,6 +91,7 @@ const DEFAULTS: Flags = {
     videoShareButtonEnabled: true,
     videoShowRelatedVideosEnabled: true,
     videoShowCommentsEnabled: true,
+    videoShowDescriptionEnabled: true,
 
     channelJoinButtonEnabled: true,
     topicBarEnabled: true,
@@ -121,6 +125,7 @@ const apply = (): void => {
     initVideoShareButton(flags.videoShareButtonEnabled);
     initRelatedVideos(flags.videoShowRelatedVideosEnabled);
     initComments(flags.videoShowCommentsEnabled);
+    initDesription(flags.videoShowDescriptionEnabled);
 
     initChannelJoinButton(flags.channelJoinButtonEnabled);
     initTopicBar(flags.topicBarEnabled);
