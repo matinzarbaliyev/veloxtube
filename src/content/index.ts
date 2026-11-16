@@ -12,7 +12,7 @@ import { initVideoThanksButton } from "./video/showSupport";
 import { initVideoShareButton } from "./video/shareButton";
 import { initRelatedVideos } from "./video/relatedVideos";
 import { initComments } from "./video/commentsSection";
-import { initDesription } from "./video/descriptionSection";
+import { initDescriptionHider } from "./video/descriptionSection";
 // ========================================================= //
 
 import { initChannelJoinButton } from "./channel/joinButton";
@@ -125,7 +125,7 @@ const apply = (): void => {
     initVideoShareButton(flags.videoShareButtonEnabled);
     initRelatedVideos(flags.videoShowRelatedVideosEnabled);
     initComments(flags.videoShowCommentsEnabled);
-    initDesription(flags.videoShowDescriptionEnabled);
+    initDescriptionHider(flags.videoShowDescriptionEnabled);
 
     initChannelJoinButton(flags.channelJoinButtonEnabled);
     initTopicBar(flags.topicBarEnabled);

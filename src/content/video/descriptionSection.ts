@@ -1,40 +1,40 @@
-const WATCH_METADATA = "ytd-watch-flexy"
+const WATCH_ROOT = "ytd-watch-flexy"
 const DESCRIPTION = "#description"
-const HIDE_DESCRIPTION_CSS = `${WATCH_METADATA} ${DESCRIPTION} {\n    display: none !important;\n}`
+const HIDE_DESCRIPTION_CSS = `${WATCH_ROOT} ${DESCRIPTION} {\n    display: none !important;\n}`
 
 let styleElement: HTMLStyleElement | null = null;
 let observer: MutationObserver | null = null;
 let observedRoot: Element | null = null;
-let scheduled = false;
+let removalScheduled = false;
 
-const detachDesription = (): void => {
-    scheduled = false;
+const removeDescription = (): void => {
+    removalScheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(WATCH_METADATA);
+        observedRoot = document.querySelector(WATCH_ROOT);
     }
 
     if (!observedRoot) return;
 
-    for (const joinButton of observedRoot.querySelectorAll(HIDE_DESCRIPTION_CSS)) {
-        joinButton.remove();
+    for (const descriptionElement of observedRoot.querySelectorAll(HIDE_DESCRIPTION_CSS)) {
+        descriptionElement.remove();
     }
 };
 
-const scheduleDetach = (): void => {
-    if (scheduled) return;
+const scheduleRemoval = (): void => {
+    if (removalScheduled) return;
 
-    scheduled = true;
-    queueMicrotask(detachDesription);
+    removalScheduled = true;
+    queueMicrotask(removeDescription);
 };
 
-const onMutations = (records: MutationRecord[]): void => {
+const onDomMutations = (records: MutationRecord[]): void => {
     if (records.some((record) => record.addedNodes.length > 0)) {
-        scheduleDetach();
+        scheduleRemoval();
     }
 };
 
-const setStyles = (enabled: boolean): void => {
+const setStyleElement = (enabled: boolean): void => {
     if (!enabled) {
         styleElement?.remove();
         styleElement = null;
@@ -50,36 +50,36 @@ const setStyles = (enabled: boolean): void => {
     (document.head ?? document.documentElement).append(styleElement);
 };
 
-const stopObserving = (): void => {
+const disconnectObserver = (): void => {
     observer?.disconnect();
     observer = null;
     observedRoot = null;
-    scheduled = false;
+    removalScheduled = false;
 };
 
-export const initDesription = (enabled: boolean): void => {
-    setStyles(enabled);
+export const initDescriptionHider = (enabled: boolean): void => {
+    setStyleElement(enabled);
 
     if (!enabled) {
-        stopObserving();
+        disconnectObserver();
         return;
     }
 
-    const root = document.querySelector(WATCH_METADATA);
+    const root = document.querySelector(WATCH_ROOT);
 
     if (root === observedRoot && root?.isConnected) {
-        detachDesription();
+        removeDescription();
         return;
     }
 
-    stopObserving();
+    disconnectObserver();
 
     if (!root) {
         return;
     }
 
     observedRoot = root;
-    observer = new MutationObserver(onMutations);
+    observer = new MutationObserver(onDomMutations);
     observer.observe(root, { childList: true, subtree: true });
-    detachDesription();
+    removeDescription();
 };
