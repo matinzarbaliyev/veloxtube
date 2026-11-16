@@ -27,3 +27,4 @@
 
 - **Related Videos Removal** — Hides related videos on the video page.
 - **Comments under Video** — Hides comments under the video on the video page.
+- **Description under Video** — Hides description under the video on the video page.
