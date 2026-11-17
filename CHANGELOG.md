@@ -33,5 +33,6 @@
 - **Youtube Featured Removal** — Hides Youtube Featured in the home page.
 - **Home Feed Removal** — Hides home feed (recommended videos) in the home page.
 - **Live Chat Removal** — Hides live chat of video on the video page.
+- **Dark/light theme switch** - now users can decide the theme of popup.
 
 During that day, exntension is finally being approved!!!
