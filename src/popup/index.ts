@@ -3,6 +3,7 @@ const KEYS = [
     // ===== HOME PAGE ===== //
     "homeShortsEnabled",
     "homeYoutubeFeaturedEnabled",
+    "homeHomeFeedEnabled",
     // ====================== //
 
 
@@ -36,6 +37,7 @@ const DEFAULTS: Record<Key, boolean> = {
     // =========== HOME PAGE =========== //
     homeShortsEnabled: true,
     homeYoutubeFeaturedEnabled: true,
+    homeHomeFeedEnabled: true,
     // ================================== //
 
 

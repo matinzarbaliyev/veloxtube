@@ -30,5 +30,6 @@
 - **Description under Video** — Hides description under the video on the video page.
 
 ## 17 November 2026
+- **Youtube Featured Remal** — Hides Youtube Featured in the home page.
 
 

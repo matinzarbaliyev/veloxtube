@@ -2,6 +2,7 @@
 // ======================= HOME PAGE ====================== //
 import { initHomeShorts } from "./home/homeShorts";
 import { initYoutubeFeaturedHider } from "./home/youtubeFeatured";
+import { initHomeFeedHider } from "./home/homeReccommended";
 // ========================================================= //
 
 
@@ -35,6 +36,7 @@ const KEYS = [
     // ===== HOME PAGE ===== //
     "homeShortsEnabled",
     "homeYoutubeFeaturedEnabled",
+    "homeHomeFeedEnabled",
     // ====================== //
 
 
@@ -65,8 +67,9 @@ const KEYS = [
 type Flags = {
 
     // =========== HOME PAGE =========== //
-    homeShortsEnabled: boolean;
-    homeYoutubeFeaturedEnabled: boolean;
+    homeShortsEnabled: boolean
+    homeYoutubeFeaturedEnabled: boolean
+    homeHomeFeedEnabled: boolean
     // ================================== //
 
     searchShortsEnabled: boolean;
@@ -98,6 +101,7 @@ const DEFAULTS: Flags = {
     // =========== HOME PAGE =========== //
     homeShortsEnabled: true,
     homeYoutubeFeaturedEnabled: true,
+    homeHomeFeedEnabled: true,
     // ================================== //
 
 
@@ -138,6 +142,7 @@ const apply = (): void => {
     // =========== HOME PAGE =========== //
     initHomeShorts(flags.homeShortsEnabled)
     initYoutubeFeaturedHider(flags.homeYoutubeFeaturedEnabled)
+    initHomeFeedHider(flags.homeHomeFeedEnabled)
     // ================================== //
 
 
