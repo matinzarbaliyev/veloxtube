@@ -1,25 +1,53 @@
 :root {
     color-scheme: dark;
+    --bg: #0f0f0f;
+    --fg: #f1f1f1;
+    --title: #aaa;
+    --muted: #717171;
+    --line: #272727;
+    --track: #3d3d3d;
+    --knob: #f1f1f1;
+    --accent: #ff4e45;
+}
+
+:root[data-theme="light"] {
+    color-scheme: light;
+    --bg: #fff;
+    --fg: #000;
+    --title: #444;
+    --muted: #666;
+    --line: #ddd;
+    --track: #ccc;
+    --knob: #fff;
+    --accent: #7cc0f5;
 }
 
 body {
     width: 220px;
     margin: 0;
     padding: 12px 14px 14px;
-    background: #0f0f0f;
-    color: #f1f1f1;
+    background: var(--bg);
+    color: var(--fg);
     font:
         13px/1.4 system-ui,
         sans-serif;
 }
 
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
 h1 {
-    margin: 0 0 10px;
+    margin: 0;
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: #aaa;
+    color: var(--title);
 }
 
 h2 {
@@ -28,7 +56,7 @@ h2 {
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: #717171;
+    color: var(--muted);
 }
 
 label {
@@ -43,7 +71,7 @@ label {
 hr {
     margin: 6px 0;
     border: 0;
-    border-top: 1px solid #272727;
+    border-top: 1px solid var(--line);
 }
 
 input {
@@ -53,7 +81,7 @@ input {
     height: 20px;
     margin: 0;
     border-radius: 10px;
-    background: #3d3d3d;
+    background: var(--track);
     cursor: pointer;
 }
 
@@ -64,11 +92,11 @@ input::after {
     height: 16px;
     margin: 2px;
     border-radius: 50%;
-    background: #f1f1f1;
+    background: var(--knob);
 }
 
 input:checked {
-    background: #ff4e45;
+    background: var(--accent);
 }
 
 input:checked::after {
@@ -76,20 +104,58 @@ input:checked::after {
 }
 
 input:focus-visible {
-    outline: 2px solid #ff4e45;
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
+}
+
+.theme {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.theme input {
+    width: 40px;
+}
+
+.theme input:checked::after {
+    transform: translateX(20px);
+}
+
+.theme svg {
+    position: absolute;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    transform: translateY(-50%);
+    fill: none;
+    stroke: #8a8a8a;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    pointer-events: none;
+}
+
+.theme .moon {
+    left: 5px;
+    fill: #8a8a8a;
+    stroke: none;
+}
+
+.theme .sun {
+    right: 5px;
 }
 
 .github {
     display: flex;
     justify-content: center;
     padding: 8px 0 2px;
-    color: #717171;
+    color: var(--muted);
 }
 
 .github:hover,
 .github:focus-visible {
-    color: #f1f1f1;
+    color: var(--fg);
 }
 
 .github svg {

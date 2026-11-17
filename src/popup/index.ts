@@ -66,17 +66,23 @@ const DEFAULTS: Record<Key, boolean> = {
     inFeedAdsEnabled: true,
 };
 
-const getInput = (key: Key): HTMLInputElement => {
-    const input = document.getElementById(key);
+const getInput = (id: string): HTMLInputElement => {
+    const input = document.getElementById(id);
 
     if (!(input instanceof HTMLInputElement)) {
-        throw new Error(`Missing popup input: ${key}`);
+        throw new Error(`Missing popup input: ${id}`);
     }
 
     return input;
 };
 
 const inputs = KEYS.map((key) => [key, getInput(key)] as const);
+
+const themeInput = getInput("lightThemeEnabled");
+
+const applyTheme = (light: boolean): void => {
+    document.documentElement.dataset.theme = light ? "light" : "dark";
+};
 
 const reloadYouTubeTab = async (): Promise<void> => {
     const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
@@ -97,3 +103,15 @@ for (const [key, input] of inputs) {
         void browser.storage.local.set({ [key]: input.checked }).then(reloadYouTubeTab);
     });
 }
+
+void browser.storage.local.get("lightThemeEnabled").then((stored) => {
+    const light = stored.lightThemeEnabled === true;
+
+    themeInput.checked = light;
+    applyTheme(light);
+});
+
+themeInput.addEventListener("change", () => {
+    applyTheme(themeInput.checked);
+    void browser.storage.local.set({ lightThemeEnabled: themeInput.checked });
+});
