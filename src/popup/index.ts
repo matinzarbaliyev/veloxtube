@@ -21,6 +21,7 @@ const KEYS = [
     "videoShowRelatedVideosEnabled",
     "videoShowCommentsEnabled",
     "videoShowDescriptionEnabled",
+    "videoShowLiveChatEnabled",
     // ====================== //
 
     "channelJoinButtonEnabled",
@@ -56,6 +57,7 @@ const DEFAULTS: Record<Key, boolean> = {
     videoShowRelatedVideosEnabled: true,
     videoShowCommentsEnabled: true,
     videoShowDescriptionEnabled: true,
+    videoShowLiveChatEnabled: true,
 
     channelJoinButtonEnabled: true,
     topicBarEnabled: true,

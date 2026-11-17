@@ -1,36 +1,37 @@
 
 // ======================= HOME PAGE ====================== //
-import { initHomeShorts } from "./home/homeShorts";
-import { initYoutubeFeaturedHider } from "./home/youtubeFeatured";
-import { initHomeFeedHider } from "./home/homeReccommended";
+import { initHomeShorts } from "./home/homeShorts"
+import { initYoutubeFeaturedHider } from "./home/youtubeFeatured"
+import { initHomeFeedHider } from "./home/homeReccommended"
 // ========================================================= //
 
 
-import { initSearchShorts } from "./search/searchShorts";
-import { initSidebarShorts } from "./sidebar/sidebarShorts";
-import { initSidebarFooter } from "./sidebar/sidebarFooter";
-import { initTopLogo } from "./masthead/topLogo";
-import { initNotificationBell } from "./masthead/notificationBell";
-import { initMicButton } from "./masthead/micButton";
+import { initSearchShorts } from "./search/searchShorts"
+import { initSidebarShorts } from "./sidebar/sidebarShorts"
+import { initSidebarFooter } from "./sidebar/sidebarFooter"
+import { initTopLogo } from "./masthead/topLogo"
+import { initNotificationBell } from "./masthead/notificationBell"
+import { initMicButton } from "./masthead/micButton"
 
 // ======================= VIDEO PAGE ====================== //
-import { initVideoJoinButton } from "./video/joinButton";
-import { initVideoThanksButton } from "./video/showSupport";
-import { initVideoShareButton } from "./video/shareButton";
-import { initRelatedVideos } from "./video/relatedVideos";
-import { initComments } from "./video/commentsSection";
-import { initDescriptionHider } from "./video/descriptionSection";
+import { initVideoJoinButton } from "./video/joinButton"
+import { initVideoThanksButton } from "./video/showSupport"
+import { initVideoShareButton } from "./video/shareButton"
+import { initRelatedVideos } from "./video/relatedVideos"
+import { initComments } from "./video/commentsSection"
+import { initDescriptionHider } from "./video/descriptionSection"
+import { initLiveChatHider } from "./video/liveChat"
 // ========================================================= //
 
-import { initChannelJoinButton } from "./channel/joinButton";
-import { initTopicBar } from "./feeds/topicBar";
-import { initMoreFromYouTube } from "./sidebar/moreFromYouTube";
-import { initInFeedAds } from "./feeds/inFeedAds";
-import { initExploreMenu } from "./sidebar/exploreMenu";
+import { initChannelJoinButton } from "./channel/joinButton"
+import { initTopicBar } from "./feeds/topicBar"
+import { initMoreFromYouTube } from "./sidebar/moreFromYouTube"
+import { initInFeedAds } from "./feeds/inFeedAds"
+import { initExploreMenu } from "./sidebar/exploreMenu"
 
-const HOME_CLASS = "veloxtube-home";
-const SEARCH_CLASS = "veloxtube-search";
-const SIDEBAR_CLASS = "veloxtube-sidebar";
+const HOME_CLASS = "veloxtube-home"
+const SEARCH_CLASS = "veloxtube-search"
+const SIDEBAR_CLASS = "veloxtube-sidebar"
 const KEYS = [
 
     // ===== HOME PAGE ===== //
@@ -54,6 +55,7 @@ const KEYS = [
     "videoShowRelatedVideosEnabled",
     "videoShowCommentsEnabled",
     "videoShowDescriptionEnabled",
+    "videoShowLiveChatEnabled",
     // ====================== //
 
 
@@ -62,7 +64,7 @@ const KEYS = [
     "moreFromYouTubeEnabled",
     "exploreMenuEnabled",
     "inFeedAdsEnabled",
-] as const;
+] as const
 
 type Flags = {
 
@@ -72,29 +74,32 @@ type Flags = {
     homeHomeFeedEnabled: boolean
     // ================================== //
 
-    searchShortsEnabled: boolean;
-    sidebarShortsEnabled: boolean;
-    sidebarFooterEnabled: boolean;
-    topLogoEnabled: boolean;
-    notificationBellEnabled: boolean;
-    micButtonEnabled: boolean;
+    searchShortsEnabled: boolean
+    sidebarShortsEnabled: boolean
+    sidebarFooterEnabled: boolean
+    topLogoEnabled: boolean
+    notificationBellEnabled: boolean
+    micButtonEnabled: boolean
 
     // =========== VIDEO PAGE =========== //
-    videoJoinButtonEnabled: boolean;
-    videoThanksButtonEnabled: boolean;
-    videoShareButtonEnabled: boolean;
-    videoShowRelatedVideosEnabled: boolean;
-    videoShowCommentsEnabled: boolean;
+    videoJoinButtonEnabled: boolean
+    videoThanksButtonEnabled: boolean
+    videoShareButtonEnabled: boolean
+    videoShowRelatedVideosEnabled: boolean
+    videoShowCommentsEnabled: boolean
     videoShowDescriptionEnabled: boolean
+    videoShowLiveChatEnabled: boolean
+
+
     // ================================== //
 
 
-    channelJoinButtonEnabled: boolean;
-    topicBarEnabled: boolean;
-    moreFromYouTubeEnabled: boolean;
-    exploreMenuEnabled: boolean;
-    inFeedAdsEnabled: boolean;
-};
+    channelJoinButtonEnabled: boolean
+    topicBarEnabled: boolean
+    moreFromYouTubeEnabled: boolean
+    exploreMenuEnabled: boolean
+    inFeedAdsEnabled: boolean
+}
 
 const DEFAULTS: Flags = {
 
@@ -112,32 +117,35 @@ const DEFAULTS: Flags = {
     notificationBellEnabled: true,
     micButtonEnabled: true,
 
-    // Video Page
+    // =========== VIDEO PAGE =========== //
     videoJoinButtonEnabled: true,
     videoThanksButtonEnabled: true,
     videoShareButtonEnabled: true,
     videoShowRelatedVideosEnabled: true,
     videoShowCommentsEnabled: true,
     videoShowDescriptionEnabled: true,
+    videoShowLiveChatEnabled: true,
+    // ================================== //
+
 
     channelJoinButtonEnabled: true,
     topicBarEnabled: true,
     moreFromYouTubeEnabled: true,
     exploreMenuEnabled: true,
     inFeedAdsEnabled: true,
-};
+}
 
-let flags: Flags = DEFAULTS;
-let scheduled = false;
+let flags: Flags = DEFAULTS
+let scheduled = false
 
 const apply = (): void => {
-    scheduled = false;
-    initInFeedAds(flags.inFeedAdsEnabled);
-    initMoreFromYouTube(flags.moreFromYouTubeEnabled);
-    initExploreMenu(flags.exploreMenuEnabled);
-    document.documentElement.classList.toggle(HOME_CLASS, flags.homeShortsEnabled);
-    document.documentElement.classList.toggle(SEARCH_CLASS, flags.searchShortsEnabled);
-    document.documentElement.classList.toggle(SIDEBAR_CLASS, flags.sidebarShortsEnabled);
+    scheduled = false
+    initInFeedAds(flags.inFeedAdsEnabled)
+    initMoreFromYouTube(flags.moreFromYouTubeEnabled)
+    initExploreMenu(flags.exploreMenuEnabled)
+    document.documentElement.classList.toggle(HOME_CLASS, flags.homeShortsEnabled)
+    document.documentElement.classList.toggle(SEARCH_CLASS, flags.searchShortsEnabled)
+    document.documentElement.classList.toggle(SIDEBAR_CLASS, flags.sidebarShortsEnabled)
 
     // =========== HOME PAGE =========== //
     initHomeShorts(flags.homeShortsEnabled)
@@ -146,59 +154,62 @@ const apply = (): void => {
     // ================================== //
 
 
-    initSearchShorts(flags.searchShortsEnabled);
-    initSidebarShorts(flags.sidebarShortsEnabled);
-    initSidebarFooter(flags.sidebarFooterEnabled);
-    initTopLogo(flags.topLogoEnabled);
-    initNotificationBell(flags.notificationBellEnabled);
-    initMicButton(flags.micButtonEnabled);
+    initSearchShorts(flags.searchShortsEnabled)
+    initSidebarShorts(flags.sidebarShortsEnabled)
+    initSidebarFooter(flags.sidebarFooterEnabled)
+    initTopLogo(flags.topLogoEnabled)
+    initNotificationBell(flags.notificationBellEnabled)
+    initMicButton(flags.micButtonEnabled)
 
     // Video Page
-    initVideoJoinButton(flags.videoJoinButtonEnabled);
-    initVideoThanksButton(flags.videoThanksButtonEnabled);
-    initVideoShareButton(flags.videoShareButtonEnabled);
-    initRelatedVideos(flags.videoShowRelatedVideosEnabled);
-    initComments(flags.videoShowCommentsEnabled);
-    initDescriptionHider(flags.videoShowDescriptionEnabled);
+    initVideoJoinButton(flags.videoJoinButtonEnabled)
+    initVideoThanksButton(flags.videoThanksButtonEnabled)
+    initVideoShareButton(flags.videoShareButtonEnabled)
+    initRelatedVideos(flags.videoShowRelatedVideosEnabled)
+    initComments(flags.videoShowCommentsEnabled)
+    initDescriptionHider(flags.videoShowDescriptionEnabled)
+    initLiveChatHider(flags.videoShowLiveChatEnabled)
+    // ==================================================== //
 
-    initChannelJoinButton(flags.channelJoinButtonEnabled);
-    initTopicBar(flags.topicBarEnabled);
-};
+
+    initChannelJoinButton(flags.channelJoinButtonEnabled)
+    initTopicBar(flags.topicBarEnabled)
+}
 
 const schedule = (): void => {
     if (scheduled) {
-        return;
+        return
     }
 
-    scheduled = true;
-    queueMicrotask(apply);
-};
+    scheduled = true
+    queueMicrotask(apply)
+}
 
-document.addEventListener("yt-navigate-finish", schedule, { passive: true });
-document.addEventListener("yt-page-data-updated", schedule, { passive: true });
+document.addEventListener("yt-navigate-finish", schedule, { passive: true })
+document.addEventListener("yt-page-data-updated", schedule, { passive: true })
 
 browser.storage.onChanged.addListener((changes, area) => {
     if (area !== "local") {
-        return;
+        return
     }
 
-    let changed = false;
+    let changed = false
 
     for (const key of KEYS) {
-        const change = changes[key];
+        const change = changes[key]
 
         if (change) {
-            flags = { ...flags, [key]: change.newValue as boolean };
-            changed = true;
+            flags = { ...flags, [key]: change.newValue as boolean }
+            changed = true
         }
     }
 
     if (changed) {
-        schedule();
+        schedule()
     }
-});
+})
 
 void browser.storage.local.get([...KEYS]).then((stored) => {
-    flags = { ...DEFAULTS, ...(stored as Partial<Flags>) };
-    schedule();
-});
+    flags = { ...DEFAULTS, ...(stored as Partial<Flags>) }
+    schedule()
+})
