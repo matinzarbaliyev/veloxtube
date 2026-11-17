@@ -79,3 +79,21 @@ input:focus-visible {
     outline: 2px solid #ff4e45;
     outline-offset: 2px;
 }
+
+.github {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0 2px;
+    color: #717171;
+}
+
+.github:hover,
+.github:focus-visible {
+    color: #f1f1f1;
+}
+
+.github svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
