@@ -1,5 +1,11 @@
 const KEYS = [
+
+    // ===== HOME PAGE ===== //
     "homeShortsEnabled",
+    "homeYoutubeFeaturedEnabled",
+    // ====================== //
+
+
     "searchShortsEnabled",
     "sidebarShortsEnabled",
     "sidebarFooterEnabled",
@@ -26,7 +32,14 @@ const KEYS = [
 type Key = (typeof KEYS)[number];
 
 const DEFAULTS: Record<Key, boolean> = {
+
+    // =========== HOME PAGE =========== //
     homeShortsEnabled: true,
+    homeYoutubeFeaturedEnabled: true,
+    // ================================== //
+
+
+
     searchShortsEnabled: true,
     sidebarShortsEnabled: true,
     sidebarFooterEnabled: true,

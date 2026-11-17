@@ -1,4 +1,10 @@
+
+// ======================= HOME PAGE ====================== //
 import { initHomeShorts } from "./home/homeShorts";
+import { initYoutubeFeaturedHider } from "./home/youtubeFeatured";
+// ========================================================= //
+
+
 import { initSearchShorts } from "./search/searchShorts";
 import { initSidebarShorts } from "./sidebar/sidebarShorts";
 import { initSidebarFooter } from "./sidebar/sidebarFooter";
@@ -25,7 +31,13 @@ const HOME_CLASS = "veloxtube-home";
 const SEARCH_CLASS = "veloxtube-search";
 const SIDEBAR_CLASS = "veloxtube-sidebar";
 const KEYS = [
+
+    // ===== HOME PAGE ===== //
     "homeShortsEnabled",
+    "homeYoutubeFeaturedEnabled",
+    // ====================== //
+
+
     "searchShortsEnabled",
     "sidebarShortsEnabled",
     "sidebarFooterEnabled",
@@ -51,7 +63,12 @@ const KEYS = [
 ] as const;
 
 type Flags = {
+
+    // =========== HOME PAGE =========== //
     homeShortsEnabled: boolean;
+    homeYoutubeFeaturedEnabled: boolean;
+    // ================================== //
+
     searchShortsEnabled: boolean;
     sidebarShortsEnabled: boolean;
     sidebarFooterEnabled: boolean;
@@ -77,7 +94,13 @@ type Flags = {
 };
 
 const DEFAULTS: Flags = {
+
+    // =========== HOME PAGE =========== //
     homeShortsEnabled: true,
+    homeYoutubeFeaturedEnabled: true,
+    // ================================== //
+
+
     searchShortsEnabled: true,
     sidebarShortsEnabled: true,
     sidebarFooterEnabled: true,
@@ -111,7 +134,13 @@ const apply = (): void => {
     document.documentElement.classList.toggle(HOME_CLASS, flags.homeShortsEnabled);
     document.documentElement.classList.toggle(SEARCH_CLASS, flags.searchShortsEnabled);
     document.documentElement.classList.toggle(SIDEBAR_CLASS, flags.sidebarShortsEnabled);
-    initHomeShorts(flags.homeShortsEnabled);
+
+    // =========== HOME PAGE =========== //
+    initHomeShorts(flags.homeShortsEnabled)
+    initYoutubeFeaturedHider(flags.homeYoutubeFeaturedEnabled)
+    // ================================== //
+
+
     initSearchShorts(flags.searchShortsEnabled);
     initSidebarShorts(flags.sidebarShortsEnabled);
     initSidebarFooter(flags.sidebarFooterEnabled);
