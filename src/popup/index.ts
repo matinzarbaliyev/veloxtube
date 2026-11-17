@@ -33,6 +33,19 @@ const KEYS = [
 
 type Key = (typeof KEYS)[number]
 
+/*
+NOTES ON THEME_KEY
+    Theme is intentionally NOT in KEYS: it uses its own storage key and does not
+    reload the YouTube tab - if the page reloads at every toggle switch of dark/light theme,
+    the user experiene would be horrible.
+    
+    Besides this, declaring it as a named constant makes that explicit
+    and easier for everyone to read and udnerstand the code.
+*/
+const THEME_KEY = "lightThemeEnabled" as const
+const THEME_DEFAULT = false // dark by default
+
+
 const DEFAULTS: Record<Key, boolean> = {
 
     // =========== HOME PAGE =========== //
@@ -78,7 +91,7 @@ const getInput = (id: string): HTMLInputElement => {
 
 const inputs = KEYS.map((key) => [key, getInput(key)] as const)
 
-const themeInput = getInput("lightThemeEnabled")
+const themeInput = getInput(THEME_KEY)
 
 const applyTheme = (light: boolean): void => {
     document.documentElement.dataset.theme = light ? "light" : "dark"
@@ -105,7 +118,7 @@ for (const [key, input] of inputs) {
 }
 
 void browser.storage.local.get("lightThemeEnabled").then((stored) => {
-    const light = stored.lightThemeEnabled === true
+    const light = (stored[THEME_KEY] as boolean | undefined) ?? THEME_DEFAULT;
 
     themeInput.checked = light
     applyTheme(light)
@@ -113,5 +126,5 @@ void browser.storage.local.get("lightThemeEnabled").then((stored) => {
 
 themeInput.addEventListener("change", () => {
     applyTheme(themeInput.checked)
-    void browser.storage.local.set({ lightThemeEnabled: themeInput.checked })
+    void browser.storage.local.set({ [THEME_KEY]: themeInput.checked })
 })
