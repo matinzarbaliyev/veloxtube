@@ -1,13 +1,17 @@
+// DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const WATCH_METADATA = "ytd-watch-flexy"
-const RELATED = "ytd-watch-next-secondary-results-renderer"
-const HIDE_RELATED_CSS = `${WATCH_METADATA} ${RELATED} {\n    display: none !important;\n}`
+const HIDING_CSS = `
+    ytd-watch-flexy #related {
+        display: none !important;
+    }
+`
 
 let styleElement: HTMLStyleElement | null = null;
 let observer: MutationObserver | null = null;
 let observedRoot: Element | null = null;
 let scheduled = false;
 
-const detachRelatedVideos = (): void => {
+const removeRelatedVideos = (): void => {
     scheduled = false;
 
     if (!observedRoot?.isConnected) {
@@ -16,7 +20,7 @@ const detachRelatedVideos = (): void => {
 
     if (!observedRoot) return;
 
-    for (const joinButton of observedRoot.querySelectorAll(HIDE_RELATED_CSS)) {
+    for (const joinButton of observedRoot.querySelectorAll(HIDING_CSS)) {
         joinButton.remove();
     }
 };
@@ -25,7 +29,7 @@ const scheduleDetach = (): void => {
     if (scheduled) return;
 
     scheduled = true;
-    queueMicrotask(detachRelatedVideos);
+    queueMicrotask(removeRelatedVideos);
 };
 
 const onMutations = (records: MutationRecord[]): void => {
@@ -46,7 +50,7 @@ const setStyles = (enabled: boolean): void => {
     }
 
     styleElement = document.createElement("style");
-    styleElement.textContent = HIDE_RELATED_CSS;
+    styleElement.textContent = HIDING_CSS;
     (document.head ?? document.documentElement).append(styleElement);
 };
 
@@ -57,7 +61,7 @@ const stopObserving = (): void => {
     scheduled = false;
 };
 
-export const initRelatedVideos = (enabled: boolean): void => {
+export const initRelatedVideosHider = (enabled: boolean): void => {
     setStyles(enabled);
 
     if (!enabled) {
@@ -68,7 +72,7 @@ export const initRelatedVideos = (enabled: boolean): void => {
     const root = document.querySelector(WATCH_METADATA);
 
     if (root === observedRoot && root?.isConnected) {
-        detachRelatedVideos();
+        removeRelatedVideos();
         return;
     }
 
@@ -81,5 +85,5 @@ export const initRelatedVideos = (enabled: boolean): void => {
     observedRoot = root;
     observer = new MutationObserver(onMutations);
     observer.observe(root, { childList: true, subtree: true });
-    detachRelatedVideos();
+    removeRelatedVideos();
 };
