@@ -17,7 +17,7 @@ import { initMicButton } from "./masthead/micButton"
 // ======================= VIDEO PAGE ====================== //
 import { initVideoJoinButtonHider } from "./video/videoJoinButton"
 import { initVideoThanksButton } from "./video/showSupport"
-import { initVideoShareButton } from "./video/shareButton"
+import { initVideoShareButtonHider } from "./video/videoShareButton"
 import { initRelatedVideosHider } from "./video/videoRelatedVideos"
 import { initVideoCommentsHider } from "./video/videoComments"
 import { initDescriptionHider } from "./video/videoDescription"
@@ -195,7 +195,7 @@ const apply = (): void => {
     // Video Page
     initVideoJoinButtonHider(flags.videoJoinButtonEnabled)
     initVideoThanksButton(flags.videoThanksButtonEnabled)
-    initVideoShareButton(flags.videoShareButtonEnabled)
+    initVideoShareButtonHider(flags.videoShareButtonEnabled)
     initRelatedVideosHider(flags.videoShowRelatedVideosEnabled)
     initVideoCommentsHider(flags.videoShowCommentsEnabled)
     initDescriptionHider(flags.videoShowDescriptionEnabled)

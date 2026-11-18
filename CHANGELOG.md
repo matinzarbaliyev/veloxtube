@@ -46,6 +46,8 @@ During that day, exntension is finally being approved!!!
     - Removal of description panel from video page works again.
     - Removal of Join button from video page works again.
     - Removal of Description Panel from video page works again.
+    - Removal of Video Share Button from video page works again.
+
 
 ## Status
 - Sidebar related scripts: ✅

@@ -1,24 +1,32 @@
-const WATCH_METADATA = "ytd-watch-metadata";
-const BUTTON = ":is(yt-button-view-model, button-view-model)";
-const SHARE_LABEL = ':is([aria-label*="Share" i], [title*="Share" i])';
-const SHARE_BUTTON = `:is(${BUTTON}:has(${SHARE_LABEL}), ${BUTTON}${SHARE_LABEL})`;
-const HIDE_SHARE_BUTTON_CSS = `${WATCH_METADATA} ${SHARE_BUTTON} {\n    display: none !important;\n}`;
+// DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
+
+const ROOT = "ytd-watch-metadata"
+// Selector for querySelectorAll and building the style rule
+const SHARE_SELECTOR = `${ROOT} #top-level-buttons-computed > yt-button-view-model:has([aria-label='Share'])`
+
+// Full CSS rule for the injection style tag
+const HIDING_CSS = `
+    ${SHARE_SELECTOR} {
+        display: none !important;
+    }
+`;
 
 let styleElement: HTMLStyleElement | null = null;
 let observer: MutationObserver | null = null;
 let observedRoot: Element | null = null;
 let scheduled = false;
 
-const detachShareButton = (): void => {
+const removeShareButton = (): void => {
     scheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(WATCH_METADATA);
+        observedRoot = document.querySelector(ROOT);
     }
 
     if (!observedRoot) return;
 
-    for (const joinButton of observedRoot.querySelectorAll(SHARE_BUTTON)) {
+    // Use SHARE_SELECTOR here instead of HIDING_CSS
+    for (const joinButton of observedRoot.querySelectorAll(SHARE_SELECTOR)) {
         joinButton.remove();
     }
 };
@@ -27,7 +35,7 @@ const scheduleDetach = (): void => {
     if (scheduled) return;
 
     scheduled = true;
-    queueMicrotask(detachShareButton);
+    queueMicrotask(removeShareButton);
 };
 
 const onMutations = (records: MutationRecord[]): void => {
@@ -48,7 +56,7 @@ const setStyles = (enabled: boolean): void => {
     }
 
     styleElement = document.createElement("style");
-    styleElement.textContent = HIDE_SHARE_BUTTON_CSS;
+    styleElement.textContent = HIDING_CSS;
     (document.head ?? document.documentElement).append(styleElement);
 };
 
@@ -59,7 +67,7 @@ const stopObserving = (): void => {
     scheduled = false;
 };
 
-export const initVideoShareButton = (enabled: boolean): void => {
+export const initVideoShareButtonHider = (enabled: boolean): void => {
     setStyles(enabled);
 
     if (!enabled) {
@@ -67,10 +75,10 @@ export const initVideoShareButton = (enabled: boolean): void => {
         return;
     }
 
-    const root = document.querySelector(WATCH_METADATA);
+    const root = document.querySelector(ROOT);
 
     if (root === observedRoot && root?.isConnected) {
-        detachShareButton();
+        removeShareButton();
         return;
     }
 
@@ -83,5 +91,5 @@ export const initVideoShareButton = (enabled: boolean): void => {
     observedRoot = root;
     observer = new MutationObserver(onMutations);
     observer.observe(root, { childList: true, subtree: true });
-    detachShareButton();
+    removeShareButton();
 };
