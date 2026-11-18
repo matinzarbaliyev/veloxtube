@@ -41,6 +41,9 @@ During that day, exntension is finally being approved!!!
 - **Sibedar: Subscriptions Panel Removal** —  Hides Subscription Panel from sidebar. 
 - **Home: Subscriptions Button Removal** —  Hides Subscription Panel from sidebar.
 
+- **BUGS/FIXES:**
+    - Removal of related videos from video page works again.
+
 ## Status
 - Sidebar related scripts: ✅
 - Video page related scripts: ❌
