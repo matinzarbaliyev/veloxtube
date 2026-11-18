@@ -54,5 +54,5 @@ During that day, exntension is finally being approved!!!
 - Sidebar related scripts: ✅
 - Video page related scripts: ✅
 - Home page related scripts: ✅
-- Masthead related scripts: ❌
-- Search related scripts: ❌
+- Masthead related scripts: ✅
+- Search related scripts: ✅
