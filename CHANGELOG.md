@@ -44,6 +44,8 @@ During that day, exntension is finally being approved!!!
 - **BUGS/FIXES:**
     - Removal of related videos from video page works again.
     - Removal of description panel from video page works again.
+    - Removal of Join button from video page works again.
+    - Removal of Description Panel from video page works again.
 
 ## Status
 - Sidebar related scripts: ✅

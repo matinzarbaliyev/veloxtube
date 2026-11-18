@@ -61,7 +61,7 @@ const stopObserving = (): void => {
     scheduled = false;
 };
 
-export const initJoinButtonHider = (enabled: boolean): void => {
+export const initVideoJoinButtonHider = (enabled: boolean): void => {
     setStyles(enabled);
 
     if (!enabled) {

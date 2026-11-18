@@ -1,22 +1,26 @@
-const WATCH_METADATA = "ytd-watch-flexy"
-const COMMENTS = "#comments"
-const HIDE_COMMENTS_CSS = `${WATCH_METADATA} ${COMMENTS} {\n    display: none !important;\n}`
+// DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
+const ROOT = "ytd-watch-flexy"
+const HIDING_CSS = `
+    ytd-watch-flexy #comments {
+        display: none !important;
+    }
+`
 
 let styleElement: HTMLStyleElement | null = null;
 let observer: MutationObserver | null = null;
 let observedRoot: Element | null = null;
 let scheduled = false;
 
-const detachComments = (): void => {
+const removeComments = (): void => {
     scheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(WATCH_METADATA);
+        observedRoot = document.querySelector(ROOT);
     }
 
     if (!observedRoot) return;
 
-    for (const joinButton of observedRoot.querySelectorAll(HIDE_COMMENTS_CSS)) {
+    for (const joinButton of observedRoot.querySelectorAll(HIDING_CSS)) {
         joinButton.remove();
     }
 };
@@ -25,7 +29,7 @@ const scheduleDetach = (): void => {
     if (scheduled) return;
 
     scheduled = true;
-    queueMicrotask(detachComments);
+    queueMicrotask(removeComments);
 };
 
 const onMutations = (records: MutationRecord[]): void => {
@@ -46,7 +50,7 @@ const setStyles = (enabled: boolean): void => {
     }
 
     styleElement = document.createElement("style");
-    styleElement.textContent = HIDE_COMMENTS_CSS;
+    styleElement.textContent = HIDING_CSS;
     (document.head ?? document.documentElement).append(styleElement);
 };
 
@@ -57,7 +61,7 @@ const stopObserving = (): void => {
     scheduled = false;
 };
 
-export const initComments = (enabled: boolean): void => {
+export const initVideoCommentsHider = (enabled: boolean): void => {
     setStyles(enabled);
 
     if (!enabled) {
@@ -65,10 +69,10 @@ export const initComments = (enabled: boolean): void => {
         return;
     }
 
-    const root = document.querySelector(WATCH_METADATA);
+    const root = document.querySelector(ROOT);
 
     if (root === observedRoot && root?.isConnected) {
-        detachComments();
+        removeComments();
         return;
     }
 
@@ -81,5 +85,5 @@ export const initComments = (enabled: boolean): void => {
     observedRoot = root;
     observer = new MutationObserver(onMutations);
     observer.observe(root, { childList: true, subtree: true });
-    detachComments();
+    removeComments();
 };

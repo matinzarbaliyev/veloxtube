@@ -15,11 +15,11 @@ import { initNotificationBell } from "./masthead/notificationBell"
 import { initMicButton } from "./masthead/micButton"
 
 // ======================= VIDEO PAGE ====================== //
-import { initJoinButtonHider } from "./video/videoJoinButton"
+import { initVideoJoinButtonHider } from "./video/videoJoinButton"
 import { initVideoThanksButton } from "./video/showSupport"
 import { initVideoShareButton } from "./video/shareButton"
 import { initRelatedVideosHider } from "./video/videoRelatedVideos"
-import { initComments } from "./video/videoComments"
+import { initVideoCommentsHider } from "./video/videoComments"
 import { initDescriptionHider } from "./video/videoDescription"
 import { initLiveChatHider } from "./video/liveChat"
 // ========================================================= //
@@ -193,11 +193,11 @@ const apply = (): void => {
     initMicButton(flags.micButtonEnabled)
 
     // Video Page
-    initJoinButtonHider(flags.videoJoinButtonEnabled)
+    initVideoJoinButtonHider(flags.videoJoinButtonEnabled)
     initVideoThanksButton(flags.videoThanksButtonEnabled)
     initVideoShareButton(flags.videoShareButtonEnabled)
     initRelatedVideosHider(flags.videoShowRelatedVideosEnabled)
-    initComments(flags.videoShowCommentsEnabled)
+    initVideoCommentsHider(flags.videoShowCommentsEnabled)
     initDescriptionHider(flags.videoShowDescriptionEnabled)
     initLiveChatHider(flags.videoShowLiveChatEnabled)
     // ==================================================== //
