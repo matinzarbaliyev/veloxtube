@@ -1,5 +1,5 @@
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
-const WATCH_METADATA = "ytd-watch-flexy"
+const ROOT = "ytd-watch-flexy"
 const HIDING_CSS = `
     ytd-watch-flexy #related {
         display: none !important;
@@ -15,7 +15,7 @@ const removeRelatedVideos = (): void => {
     scheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(WATCH_METADATA);
+        observedRoot = document.querySelector(ROOT);
     }
 
     if (!observedRoot) return;
@@ -69,7 +69,7 @@ export const initRelatedVideosHider = (enabled: boolean): void => {
         return;
     }
 
-    const root = document.querySelector(WATCH_METADATA);
+    const root = document.querySelector(ROOT);
 
     if (root === observedRoot && root?.isConnected) {
         removeRelatedVideos();

@@ -20,7 +20,7 @@ import { initVideoThanksButton } from "./video/showSupport"
 import { initVideoShareButton } from "./video/shareButton"
 import { initRelatedVideosHider } from "./video/videoRelatedVideos"
 import { initComments } from "./video/videoComments"
-import { initDescriptionHider } from "./video/descriptionSection"
+import { initDescriptionHider } from "./video/videoDescription"
 import { initLiveChatHider } from "./video/liveChat"
 // ========================================================= //
 
