@@ -40,3 +40,10 @@ During that day, exntension is finally being approved!!!
 ## 18 November 2026
 - **Sibedar: Subscriptions Panel Removal** —  Hides Subscription Panel from sidebar. 
 - **Home: Subscriptions Button Removal** —  Hides Subscription Panel from sidebar.
+
+## Status
+- Sidebar related scripts: ✅
+- Video page related scripts: ❌
+- Home page related scripts: ✅
+- Masthead related scripts: ❌
+- Search related scripts: ❌

@@ -1,3 +1,4 @@
+// DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const HIDING_CSS = `
     ytd-guide-section-renderer:has(ytd-guide-collapsible-section-entry-renderer a[href="/feed/subscriptions"]
     ) {
