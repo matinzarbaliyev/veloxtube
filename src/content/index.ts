@@ -122,41 +122,41 @@ type Flags = {
 const DEFAULTS: Flags = {
 
     // =========== HOME PAGE =========== //
-    homeShortsEnabled: true,
-    homeYoutubeFeaturedEnabled: true,
-    homeHomeFeedEnabled: true,
-    homeSubscriptionsButtonEnabled: true,
+    homeShortsEnabled: false,
+    homeYoutubeFeaturedEnabled: false,
+    homeHomeFeedEnabled: false,
+    homeSubscriptionsButtonEnabled: false,
     // ================================== //
 
-    searchShortsEnabled: true,
-    sidebarShortsEnabled: true,
-    sidebarFooterEnabled: true,
-    topLogoEnabled: true,
-    notificationBellEnabled: true,
-    micButtonEnabled: true,
+    searchShortsEnabled: false,
+    sidebarShortsEnabled: false,
+    sidebarFooterEnabled: false,
+    topLogoEnabled: false,
+    notificationBellEnabled: false,
+    micButtonEnabled: false,
 
     // =========== VIDEO PAGE =========== //
-    videoJoinButtonEnabled: true,
-    videoThanksButtonEnabled: true,
-    videoShareButtonEnabled: true,
-    videoShowRelatedVideosEnabled: true,
-    videoShowCommentsEnabled: true,
-    videoShowDescriptionEnabled: true,
-    videoShowLiveChatEnabled: true,
+    videoJoinButtonEnabled: false,
+    videoThanksButtonEnabled: false,
+    videoShareButtonEnabled: false,
+    videoShowRelatedVideosEnabled: false,
+    videoShowCommentsEnabled: false,
+    videoShowDescriptionEnabled: false,
+    videoShowLiveChatEnabled: false,
     // ================================== //
 
-    channelJoinButtonEnabled: true,
-    topicBarEnabled: true,
+    channelJoinButtonEnabled: false,
+    topicBarEnabled: false,
 
     // =========== SIDEBAR MENU =========== //
-    moreFromYouTubeEnabled: true,
-    exploreMenuEnabled: true,
-    sidebarSubscriptionsMenuEnabled: true,
+    moreFromYouTubeEnabled: false,
+    exploreMenuEnabled: false,
+    sidebarSubscriptionsMenuEnabled: false,
     // ================================== //
 
 
 
-    inFeedAdsEnabled: true,
+    inFeedAdsEnabled: false,
 }
 
 let flags: Flags = DEFAULTS

@@ -54,39 +54,39 @@ const THEME_DEFAULT = false // dark by default
 const DEFAULTS: Record<Key, boolean> = {
 
     // =========== HOME PAGE =========== //
-    homeShortsEnabled: true,
-    homeYoutubeFeaturedEnabled: true,
-    homeHomeFeedEnabled: true,
-    homeSubscriptionsButtonEnabled: true,
+    homeShortsEnabled: false,
+    homeYoutubeFeaturedEnabled: false,
+    homeHomeFeedEnabled: false,
+    homeSubscriptionsButtonEnabled: false,
     // ================================== //
 
 
 
-    searchShortsEnabled: true,
-    sidebarShortsEnabled: true,
-    sidebarFooterEnabled: true,
-    topLogoEnabled: true,
-    notificationBellEnabled: true,
-    micButtonEnabled: true,
+    searchShortsEnabled: false,
+    sidebarShortsEnabled: false,
+    sidebarFooterEnabled: false,
+    topLogoEnabled: false,
+    notificationBellEnabled: false,
+    micButtonEnabled: false,
 
     // Video Page
-    videoJoinButtonEnabled: true,
-    videoThanksButtonEnabled: true,
-    videoShareButtonEnabled: true,
-    videoShowRelatedVideosEnabled: true,
-    videoShowCommentsEnabled: true,
-    videoShowDescriptionEnabled: true,
-    videoShowLiveChatEnabled: true,
+    videoJoinButtonEnabled: false,
+    videoThanksButtonEnabled: false,
+    videoShareButtonEnabled: false,
+    videoShowRelatedVideosEnabled: false,
+    videoShowCommentsEnabled: false,
+    videoShowDescriptionEnabled: false,
+    videoShowLiveChatEnabled: false,
 
-    channelJoinButtonEnabled: true,
-    topicBarEnabled: true,
+    channelJoinButtonEnabled: false,
+    topicBarEnabled: false,
 
 
-    moreFromYouTubeEnabled: true,
-    exploreMenuEnabled: true,
-    sidebarSubscriptionsMenuEnabled: true,
+    moreFromYouTubeEnabled: false,
+    exploreMenuEnabled: false,
+    sidebarSubscriptionsMenuEnabled: false,
 
-    inFeedAdsEnabled: true,
+    inFeedAdsEnabled: false,
 }
 
 const getInput = (id: string): HTMLInputElement => {
