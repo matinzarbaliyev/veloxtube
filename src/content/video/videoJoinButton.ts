@@ -1,27 +1,26 @@
-const WATCH_OWNER = "ytd-video-owner-renderer";
-const JOIN_TARGETS = [
-    "#sponsor-button",
-    ':is(button-view-model, yt-button-view-model, ytd-button-renderer):has(:is(button, a)[aria-label*="Join" i])',
-];
-const JOIN_TARGETS_SELECTOR = JOIN_TARGETS.join(",\n");
-const JOIN_SELECTOR = JOIN_TARGETS.map((target) => `${WATCH_OWNER} ${target}`).join(",\n");
-const JOIN_CSS = `${JOIN_SELECTOR} {\n    display: none !important;\n}`;
+// DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
+const ROOT = "ytd-video-owner-renderer"
+const HIDING_CSS = `
+    ytd-video-owner-renderer #sponsor-button {
+        display: none !important;
+    }
+`
 
 let styleElement: HTMLStyleElement | null = null;
 let observer: MutationObserver | null = null;
 let observedRoot: Element | null = null;
 let scheduled = false;
 
-const detachJoinButton = (): void => {
+const removeJoinButton = (): void => {
     scheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(WATCH_OWNER);
+        observedRoot = document.querySelector(ROOT);
     }
 
     if (!observedRoot) return;
 
-    for (const joinButton of observedRoot.querySelectorAll(JOIN_TARGETS_SELECTOR)) {
+    for (const joinButton of observedRoot.querySelectorAll(HIDING_CSS)) {
         joinButton.remove();
     }
 };
@@ -30,7 +29,7 @@ const scheduleDetach = (): void => {
     if (scheduled) return;
 
     scheduled = true;
-    queueMicrotask(detachJoinButton);
+    queueMicrotask(removeJoinButton);
 };
 
 const onMutations = (records: MutationRecord[]): void => {
@@ -51,7 +50,7 @@ const setStyles = (enabled: boolean): void => {
     }
 
     styleElement = document.createElement("style");
-    styleElement.textContent = JOIN_CSS;
+    styleElement.textContent = HIDING_CSS;
     (document.head ?? document.documentElement).append(styleElement);
 };
 
@@ -62,7 +61,7 @@ const stopObserving = (): void => {
     scheduled = false;
 };
 
-export const initVideoJoinButton = (enabled: boolean): void => {
+export const initJoinButtonHider = (enabled: boolean): void => {
     setStyles(enabled);
 
     if (!enabled) {
@@ -70,10 +69,10 @@ export const initVideoJoinButton = (enabled: boolean): void => {
         return;
     }
 
-    const root = document.querySelector(WATCH_OWNER);
+    const root = document.querySelector(ROOT);
 
     if (root === observedRoot && root?.isConnected) {
-        detachJoinButton();
+        removeJoinButton();
         return;
     }
 
@@ -86,5 +85,5 @@ export const initVideoJoinButton = (enabled: boolean): void => {
     observedRoot = root;
     observer = new MutationObserver(onMutations);
     observer.observe(root, { childList: true, subtree: true });
-    detachJoinButton();
+    removeJoinButton();
 };
