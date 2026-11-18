@@ -38,7 +38,5 @@
 During that day, exntension is finally being approved!!!
 
 ## 18 November 2026
-- **Sibedar: Subscriptions Panel Removal** —  Hides Subscription Panel from sidebar. DOES NOT WORK.
+- **Sibedar: Subscriptions Panel Removal** —  Hides Subscription Panel from sidebar. 
 - **Home: Subscriptions Button Removal** —  Hides Subscription Panel from sidebar.
-
-Issues to solve: Footer in the sidebar is not being removed.

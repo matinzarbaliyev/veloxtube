@@ -1,9 +1,3 @@
-function injectStyle(css: string): void {
-    const style = document.createElement("style")
-    style.textContent = css
-    document.head.appendChild(style)
-}
-
 const HIDING_CSS = `
     ytd-guide-section-renderer:has(ytd-guide-collapsible-section-entry-renderer a[href="/feed/subscriptions"]
     ) {
@@ -11,9 +5,96 @@ const HIDING_CSS = `
     }
 `
 
-export const initSubcriptionsMenuHider = (enabled: boolean): void => {
+let styleElement: HTMLStyleElement | null = null;
+let observer: MutationObserver | null = null;
+let observedRoot: Element | null = null;
+let removalScheduled = false;
 
-    if (enabled) {
-        injectStyle(HIDING_CSS)
+const removeSubcriptionsMenu = (): void => {
+    removalScheduled = false;
+
+    if (!observedRoot?.isConnected) {
+        observedRoot = document.querySelector(HIDING_CSS);
     }
+
+    // Not on a watch page right now, so do not do anything
+    if (!observedRoot) return;
+
+    for (const descriptionElement of observedRoot.querySelectorAll(HIDING_CSS)) {
+        descriptionElement.remove();
+    }
+};
+
+const scheduleRemoval = (): void => {
+    if (removalScheduled) return;
+
+    removalScheduled = true;
+    queueMicrotask(removeSubcriptionsMenu);
+};
+
+const onDomMutations = (records: MutationRecord[]): void => {
+    /* 
+    Sorry for that horrible comments
+    
+    onDomMutations only reacts when nodes were added, which means 
+    removals and attribute changes don't trigger a re-scan. 
+    
+    Sometimes YouTube can add the description element dynamically after initial paint, 
+    so the observer catches that insertion and starts a removal process,
+    so everything is being kept clean.
+    */
+
+    if (records.some((record) => record.addedNodes.length > 0)) {
+        scheduleRemoval();
+    }
+};
+
+const setStyleElement = (enabled: boolean): void => {
+    if (!enabled) {
+        styleElement?.remove();
+        styleElement = null;
+        return;
+    }
+
+    if (styleElement?.isConnected) {
+        return;
+    }
+
+    styleElement = document.createElement("style");
+    styleElement.textContent = HIDING_CSS;
+    (document.head ?? document.documentElement).append(styleElement);
+};
+
+const disconnectObserver = (): void => {
+    observer?.disconnect();
+    observer = null;
+    observedRoot = null;
+    removalScheduled = false;
+};
+
+export const initSubcriptionsMenuHider = (enabled: boolean): void => {
+    setStyleElement(enabled);
+
+    if (!enabled) {
+        disconnectObserver();
+        return;
+    }
+
+    const root = document.querySelector(HIDING_CSS);
+
+    if (root === observedRoot && root?.isConnected) {
+        removeSubcriptionsMenu();
+        return;
+    }
+
+    disconnectObserver();
+
+    if (!root) {
+        return;
+    }
+
+    observedRoot = root;
+    observer = new MutationObserver(onDomMutations);
+    observer.observe(root, { childList: true, subtree: true });
+    removeSubcriptionsMenu();
 };
