@@ -4,6 +4,7 @@ const KEYS = [
     "homeShortsEnabled",
     "homeYoutubeFeaturedEnabled",
     "homeHomeFeedEnabled",
+    "homeSubscriptionsButtonEnabled",
     // ====================== //
 
 
@@ -56,6 +57,7 @@ const DEFAULTS: Record<Key, boolean> = {
     homeShortsEnabled: true,
     homeYoutubeFeaturedEnabled: true,
     homeHomeFeedEnabled: true,
+    homeSubscriptionsButtonEnabled: true,
     // ================================== //
 
 

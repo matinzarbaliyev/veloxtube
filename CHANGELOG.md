@@ -36,3 +36,9 @@
 - **Dark/light theme switch** - now users can decide the theme of popup.
 
 During that day, exntension is finally being approved!!!
+
+## 18 November 2026
+- **Sibedar: Subscriptions Panel Removal** —  Hides Subscription Panel from sidebar.
+
+
+During that day, exntension is finally being approved!!!

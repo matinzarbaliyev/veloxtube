@@ -3,6 +3,7 @@
 import { initHomeShorts } from "./home/homeShorts"
 import { initYoutubeFeaturedHider } from "./home/youtubeFeatured"
 import { initHomeFeedHider } from "./home/homeReccommended"
+import { initSubcriptionsButtonHider } from "./home/homeSubcriptionsButton"
 // ========================================================= //
 
 
@@ -44,6 +45,7 @@ const KEYS = [
     "homeShortsEnabled",
     "homeYoutubeFeaturedEnabled",
     "homeHomeFeedEnabled",
+    "homeSubscriptionsButtonEnabled",
     // ====================== //
 
 
@@ -85,6 +87,7 @@ type Flags = {
     homeShortsEnabled: boolean
     homeYoutubeFeaturedEnabled: boolean
     homeHomeFeedEnabled: boolean
+    homeSubscriptionsButtonEnabled: boolean
     // ================================== //
 
     searchShortsEnabled: boolean
@@ -122,6 +125,7 @@ const DEFAULTS: Flags = {
     homeShortsEnabled: true,
     homeYoutubeFeaturedEnabled: true,
     homeHomeFeedEnabled: true,
+    homeSubscriptionsButtonEnabled: true,
     // ================================== //
 
     searchShortsEnabled: true,
@@ -171,6 +175,7 @@ const apply = (): void => {
     initHomeShorts(flags.homeShortsEnabled)
     initYoutubeFeaturedHider(flags.homeYoutubeFeaturedEnabled)
     initHomeFeedHider(flags.homeHomeFeedEnabled)
+    initSubcriptionsButtonHider(flags.homeSubscriptionsButtonEnabled)
     // ================================== //
 
 
