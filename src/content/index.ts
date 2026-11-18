@@ -21,7 +21,7 @@ import { initVideoShareButtonHider } from "./video/videoShareButton"
 import { initRelatedVideosHider } from "./video/videoRelatedVideos"
 import { initVideoCommentsHider } from "./video/videoComments"
 import { initDescriptionHider } from "./video/videoDescription"
-import { initLiveChatHider } from "./video/liveChat"
+import { initLiveChatHider } from "./video/videoLiveChat"
 // ========================================================= //
 
 import { initChannelJoinButton } from "./channel/joinButton"

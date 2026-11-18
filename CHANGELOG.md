@@ -47,11 +47,12 @@ During that day, exntension is finally being approved!!!
     - Removal of Join button from video page works again.
     - Removal of Description Panel from video page works again.
     - Removal of Video Share Button from video page works again.
+    - Removal of Live Chat from video page works again.
 
 
 ## Status
 - Sidebar related scripts: ✅
-- Video page related scripts: ❌
+- Video page related scripts: ✅
 - Home page related scripts: ✅
 - Masthead related scripts: ❌
 - Search related scripts: ❌

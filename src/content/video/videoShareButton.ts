@@ -1,6 +1,7 @@
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 
 const ROOT = "ytd-watch-metadata"
+
 // Selector for querySelectorAll and building the style rule
 const SHARE_SELECTOR = `${ROOT} #top-level-buttons-computed > yt-button-view-model:has([aria-label='Share'])`
 

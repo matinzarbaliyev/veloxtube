@@ -1,12 +1,19 @@
-const WATCH_METADATA = "ytd-watch-flexy"
-const LIVECHAT = "#chat-container"
-const HIDE_LIVECHAT_CSS = `
-    ${WATCH_METADATA} ${LIVECHAT},
-    ${WATCH_METADATA} ytd-live-chat-frame#chat,
-    ${WATCH_METADATA} #teaser-carousel {
+// DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
+
+const ROOT = "ytd-watch-flexy"
+
+// Selector for querySelectorAll and building the style rule (comma separated)
+const SHARE_SELECTOR_CHAT = `${ROOT} #chat-container`
+const SHARE_SELECTOR_TEASER_CAROUSEL = `${ROOT} #teaser-carousel`
+
+// Full CSS rule for the injection style tag
+const HIDING_CSS = `
+    ${SHARE_SELECTOR_CHAT},
+    ${SHARE_SELECTOR_TEASER_CAROUSEL}
+    {
         display: none !important;
     }
-`
+`;
 
 let styleElement: HTMLStyleElement | null = null;
 let observer: MutationObserver | null = null;
@@ -17,13 +24,15 @@ const removeHomeFeed = (): void => {
     removalScheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(HIDE_LIVECHAT_CSS);
+        observedRoot = document.querySelector(ROOT);
     }
 
     // Not on a watch page right now, so do not do anything
     if (!observedRoot) return;
 
-    for (const descriptionElement of observedRoot.querySelectorAll(HIDE_LIVECHAT_CSS)) {
+    // Combine both selectors with a comma so querySelectorAll finds both
+    const combinedSelector = `${SHARE_SELECTOR_CHAT}, ${SHARE_SELECTOR_TEASER_CAROUSEL}`;
+    for (const descriptionElement of observedRoot.querySelectorAll(combinedSelector)) {
         descriptionElement.remove();
     }
 };
@@ -64,7 +73,7 @@ const setStyleElement = (enabled: boolean): void => {
     }
 
     styleElement = document.createElement("style");
-    styleElement.textContent = HIDE_LIVECHAT_CSS;
+    styleElement.textContent = HIDING_CSS;
     (document.head ?? document.documentElement).append(styleElement);
 };
 
@@ -83,7 +92,7 @@ export const initLiveChatHider = (enabled: boolean): void => {
         return;
     }
 
-    const root = document.querySelector(HIDE_LIVECHAT_CSS);
+    const root = document.querySelector(ROOT);
 
     if (root === observedRoot && root?.isConnected) {
         removeHomeFeed();
