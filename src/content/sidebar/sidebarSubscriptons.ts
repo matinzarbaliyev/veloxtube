@@ -1,11 +1,10 @@
-const GUIDE_SECTION = "ytd-guide-section-renderer"
-const SUBSCRIPTIONS_HEADER_LINK = 'a#endpoint[href="/feed/subscriptions"]'
 const HIDE_SUBSCRIPTIONS_CSS = `
-    ${GUIDE_SECTION}:has(${SUBSCRIPTIONS_HEADER_LINK}) {
+    ytd-mini-guide-entry-renderer:has(a[href="/feed/subscriptions"]),
+    ytd-guide-section-renderer:has(a[href="/feed/subscriptions"]),
+    ytd-guide-entry-renderer:has(a[href="/feed/subscriptions"]) {
         display: none !important;
     }
 `
-
 let styleElement: HTMLStyleElement | null = null;
 let observer: MutationObserver | null = null;
 let observedRoot: Element | null = null;
