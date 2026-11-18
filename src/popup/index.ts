@@ -26,8 +26,12 @@ const KEYS = [
 
     "channelJoinButtonEnabled",
     "topicBarEnabled",
+
+
     "moreFromYouTubeEnabled",
     "exploreMenuEnabled",
+    "sidebarSubscriptionsMenuEnabled",
+
     "inFeedAdsEnabled",
 ] as const
 
@@ -74,8 +78,12 @@ const DEFAULTS: Record<Key, boolean> = {
 
     channelJoinButtonEnabled: true,
     topicBarEnabled: true,
+
+
     moreFromYouTubeEnabled: true,
     exploreMenuEnabled: true,
+    sidebarSubscriptionsMenuEnabled: true,
+
     inFeedAdsEnabled: true,
 }
 

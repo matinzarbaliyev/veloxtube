@@ -25,9 +25,15 @@ import { initLiveChatHider } from "./video/liveChat"
 
 import { initChannelJoinButton } from "./channel/joinButton"
 import { initTopicBar } from "./feeds/topicBar"
+
+// ======================= SIBDEBAR MENU ========================= //
 import { initMoreFromYouTube } from "./sidebar/moreFromYouTube"
-import { initInFeedAds } from "./feeds/inFeedAds"
 import { initExploreMenu } from "./sidebar/exploreMenu"
+import { initSubcriptionsMenuHider } from "./sidebar/sidebarSubscriptons"
+// ============================================================== //
+
+
+import { initInFeedAds } from "./feeds/inFeedAds"
 
 const HOME_CLASS = "veloxtube-home"
 const SEARCH_CLASS = "veloxtube-search"
@@ -61,9 +67,16 @@ const KEYS = [
 
     "channelJoinButtonEnabled",
     "topicBarEnabled",
+
+    // ===== SIDEBAR MENU ===== //
     "moreFromYouTubeEnabled",
     "exploreMenuEnabled",
+    "sidebarSubscriptionsMenuEnabled",
+    // ===== SIDEBAR MENU ===== //
+
     "inFeedAdsEnabled",
+
+
 ] as const
 
 type Flags = {
@@ -89,15 +102,17 @@ type Flags = {
     videoShowCommentsEnabled: boolean
     videoShowDescriptionEnabled: boolean
     videoShowLiveChatEnabled: boolean
-
-
     // ================================== //
-
 
     channelJoinButtonEnabled: boolean
     topicBarEnabled: boolean
+
+    // =========== SIDEBAR MENU =========== //
     moreFromYouTubeEnabled: boolean
     exploreMenuEnabled: boolean
+    sidebarSubscriptionsMenuEnabled: boolean
+    // ================================== //
+
     inFeedAdsEnabled: boolean
 }
 
@@ -108,7 +123,6 @@ const DEFAULTS: Flags = {
     homeYoutubeFeaturedEnabled: true,
     homeHomeFeedEnabled: true,
     // ================================== //
-
 
     searchShortsEnabled: true,
     sidebarShortsEnabled: true,
@@ -127,11 +141,17 @@ const DEFAULTS: Flags = {
     videoShowLiveChatEnabled: true,
     // ================================== //
 
-
     channelJoinButtonEnabled: true,
     topicBarEnabled: true,
+
+    // =========== SIDEBAR MENU =========== //
     moreFromYouTubeEnabled: true,
     exploreMenuEnabled: true,
+    sidebarSubscriptionsMenuEnabled: true,
+    // ================================== //
+
+
+
     inFeedAdsEnabled: true,
 }
 
@@ -155,8 +175,14 @@ const apply = (): void => {
 
 
     initSearchShorts(flags.searchShortsEnabled)
+
+    // =========== SIDEBAR MENU =========== //
     initSidebarShorts(flags.sidebarShortsEnabled)
     initSidebarFooter(flags.sidebarFooterEnabled)
+    initSubcriptionsMenuHider(flags.sidebarSubscriptionsMenuEnabled)
+    // ================================== //
+
+
     initTopLogo(flags.topLogoEnabled)
     initNotificationBell(flags.notificationBellEnabled)
     initMicButton(flags.micButtonEnabled)
