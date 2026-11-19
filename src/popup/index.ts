@@ -6,6 +6,7 @@ const KEYS = [
     "homeHomeFeedEnabled",
     "homeSubscriptionsButtonEnabled",
     "homeYoutubePlayablesEnabled",
+    "homeTopicBarEnabled",
     // ====================== //
 
 
@@ -33,7 +34,6 @@ const KEYS = [
     // ====================== //
 
     "channelJoinButtonEnabled",
-    "topicBarEnabled",
 
 
     "moreFromYouTubeEnabled",
@@ -66,6 +66,7 @@ const DEFAULTS: Record<Key, boolean> = {
     homeHomeFeedEnabled: false,
     homeSubscriptionsButtonEnabled: false,
     homeYoutubePlayablesEnabled: false,
+    homeTopicBarEnabled: false,
     // ================================== //
 
 
@@ -93,7 +94,6 @@ const DEFAULTS: Record<Key, boolean> = {
     videoMoreActionsEnabled: false,
 
     channelJoinButtonEnabled: false,
-    topicBarEnabled: false,
 
 
     moreFromYouTubeEnabled: false,

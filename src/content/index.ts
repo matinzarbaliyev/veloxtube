@@ -5,6 +5,7 @@ import { initYoutubeFeaturedHider } from "./home/youtubeFeatured"
 import { initHomeFeedHider } from "./home/homeReccommended"
 import { initSubcriptionsButtonHider } from "./home/homeSubcriptionsButton"
 import { initHomeYoutubePlayablesHider } from "./home/homeYoutubePlayables"
+import { initHomeTopicBarHider } from "./home/homeTopicBar"
 // ========================================================= //
 
 // ========================= SEARCH PAGE ======================== //
@@ -51,6 +52,7 @@ const KEYS = [
     "homeHomeFeedEnabled",
     "homeSubscriptionsButtonEnabled",
     "homeYoutubePlayablesEnabled",
+    "homeTopicBarEnabled",
     // ====================== //
 
 
@@ -79,7 +81,6 @@ const KEYS = [
 
 
     "channelJoinButtonEnabled",
-    "topicBarEnabled",
 
     // ===== SIDEBAR MENU ===== //
     "moreFromYouTubeEnabled",
@@ -100,6 +101,7 @@ type Flags = {
     homeHomeFeedEnabled: boolean
     homeSubscriptionsButtonEnabled: boolean
     homeYoutubePlayablesEnabled: boolean
+    homeTopicBarEnabled: boolean
     // ================================== //
 
     // =========== SEARCH PAGE =========== //
@@ -125,7 +127,6 @@ type Flags = {
     // ================================== //
 
     channelJoinButtonEnabled: boolean
-    topicBarEnabled: boolean
 
     // =========== SIDEBAR MENU =========== //
     moreFromYouTubeEnabled: boolean
@@ -144,6 +145,7 @@ const DEFAULTS: Flags = {
     homeHomeFeedEnabled: false,
     homeSubscriptionsButtonEnabled: false,
     homeYoutubePlayablesEnabled: false,
+    homeTopicBarEnabled: false,
     // ================================== //
 
     // =========== SEARCH PAGE =========== //
@@ -171,7 +173,6 @@ const DEFAULTS: Flags = {
     // ================================== //
 
     channelJoinButtonEnabled: false,
-    topicBarEnabled: false,
 
     // =========== SIDEBAR MENU =========== //
     moreFromYouTubeEnabled: false,
@@ -192,7 +193,7 @@ const runFeature = (init: (enabled: boolean) => void, enabled: boolean): void =>
     try {
         init(enabled)
     } catch (error) {
-        const errorMessage: string = `VeloxTube: feature failed. Feature initializer name: ${init}`
+        const errorMessage: string = `VeloxTube: feature failed. Feature initializer name: ${init.name}`
         console.error(errorMessage, error)
     }
 }
@@ -206,13 +207,14 @@ const apply = (): void => {
     document.documentElement.classList.toggle(SEARCH_CLASS, flags.searchShortsEnabled)
     document.documentElement.classList.toggle(SIDEBAR_CLASS, flags.sidebarShortsEnabled)
 
-    // =========== HOME PAGE =========== //
+    // =============================== HOME PAGE =============================== //
     runFeature(initHomeShorts, flags.homeShortsEnabled)
     runFeature(initYoutubeFeaturedHider, flags.homeYoutubeFeaturedEnabled)
     runFeature(initHomeFeedHider, flags.homeHomeFeedEnabled)
     runFeature(initSubcriptionsButtonHider, flags.homeSubscriptionsButtonEnabled)
     runFeature(initHomeYoutubePlayablesHider, flags.homeYoutubePlayablesEnabled)
-    // ================================== //
+    runFeature(initHomeTopicBarHider, flags.homeTopicBarEnabled)
+    // ========================================================================= //
 
 
     // ======================== SEARCH PAGE ======================== //

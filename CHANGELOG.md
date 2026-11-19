@@ -54,11 +54,11 @@ During that day, exntension is finally being approved!!!
 - Removal of More Actions button from video page.
 - Removal of Shorts from search page.
 - Removal of Topic Bar from search page.
+- Removal of Topic Bar from home page.
 
 
 - **BUGS/FIXES:**
     - Minor bug fixes. Everything works without any erros.
-
 
 ## Status
 - Sidebar related scripts: ✅
