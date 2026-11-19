@@ -1,7 +1,8 @@
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-watch-flexy"
+const SELECTOR = "#related"
 const HIDING_CSS = `
-    ytd-watch-flexy #related {
+    ${ROOT} ${SELECTOR} {
         display: none !important;
     }
 `
@@ -20,8 +21,8 @@ const removeRelatedVideos = (): void => {
 
     if (!observedRoot) return;
 
-    for (const joinButton of observedRoot.querySelectorAll(HIDING_CSS)) {
-        joinButton.remove();
+    for (const relatedVideo of observedRoot.querySelectorAll(SELECTOR)) {
+        relatedVideo.remove();
     }
 };
 

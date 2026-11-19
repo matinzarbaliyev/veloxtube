@@ -1,7 +1,8 @@
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-video-owner-renderer"
+const SELECTOR = "#sponsor-button"
 const HIDING_CSS = `
-    ytd-video-owner-renderer #sponsor-button {
+    ${ROOT} ${SELECTOR} {
         display: none !important;
     }
 `
@@ -20,7 +21,7 @@ const removeJoinButton = (): void => {
 
     if (!observedRoot) return;
 
-    for (const joinButton of observedRoot.querySelectorAll(HIDING_CSS)) {
+    for (const joinButton of observedRoot.querySelectorAll(SELECTOR)) {
         joinButton.remove();
     }
 };

@@ -1,8 +1,8 @@
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-watch-flexy"
-const SELECTOR = "ytd-watch-flexy #comments"
+const SELECTOR = "#comments"
 const HIDING_CSS = `
-    ${SELECTOR} {
+    ${ROOT} ${SELECTOR} {
         display: none !important;
     }
 `
@@ -16,13 +16,13 @@ const removeComments = (): void => {
     scheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(SELECTOR);
+        observedRoot = document.querySelector(ROOT);
     }
 
     if (!observedRoot) return;
 
-    for (const joinButton of observedRoot.querySelectorAll(HIDING_CSS)) {
-        joinButton.remove();
+    for (const comments of observedRoot.querySelectorAll(SELECTOR)) {
+        comments.remove();
     }
 };
 

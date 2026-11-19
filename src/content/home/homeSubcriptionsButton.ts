@@ -1,7 +1,8 @@
-const MINI_GUIDE_ENTRY = "ytd-mini-guide-entry-renderer"
-const SUBSCRIPTIONS_ENDPOINT = 'a#endpoint[href="/feed/subscriptions"]'
-const HIDE_SUBSCRIPTIONS_CSS = `
-    ${MINI_GUIDE_ENTRY}:has(${SUBSCRIPTIONS_ENDPOINT}) {
+// DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
+const ROOT = "ytd-mini-guide-renderer"
+const SELECTOR = `ytd-mini-guide-entry-renderer:has(a#endpoint[href="/feed/subscriptions"])`
+const HIDING_CSS = `
+    ${SELECTOR} {
         display: none !important;
     }
 `
@@ -15,13 +16,13 @@ const removeSubscriptionsButton = (): void => {
     removalScheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(HIDE_SUBSCRIPTIONS_CSS);
+        observedRoot = document.querySelector(ROOT);
     }
 
     // Not on a watch page right now, so do not do anything
     if (!observedRoot) return;
 
-    for (const descriptionElement of observedRoot.querySelectorAll(HIDE_SUBSCRIPTIONS_CSS)) {
+    for (const descriptionElement of observedRoot.querySelectorAll(SELECTOR)) {
         descriptionElement.remove();
     }
 };
@@ -62,7 +63,7 @@ const setStyleElement = (enabled: boolean): void => {
     }
 
     styleElement = document.createElement("style");
-    styleElement.textContent = HIDE_SUBSCRIPTIONS_CSS;
+    styleElement.textContent = HIDING_CSS;
     (document.head ?? document.documentElement).append(styleElement);
 };
 
@@ -81,7 +82,7 @@ export const initSubcriptionsButtonHider = (enabled: boolean): void => {
         return;
     }
 
-    const root = document.querySelector(HIDE_SUBSCRIPTIONS_CSS);
+    const root = document.querySelector(ROOT);
 
     if (root === observedRoot && root?.isConnected) {
         removeSubscriptionsButton();

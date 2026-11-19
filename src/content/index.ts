@@ -20,7 +20,7 @@ import { initVideoThanksButton } from "./video/showSupport"
 import { initVideoShareButtonHider } from "./video/videoShareButton"
 import { initRelatedVideosHider } from "./video/videoRelatedVideos"
 import { initVideoCommentsHider } from "./video/videoComments"
-import { initDescriptionHider } from "./video/videoDescription"
+import { initvideoDescriptionHider } from "./video/videoDescription"
 import { initLiveChatHider } from "./video/videoLiveChat"
 // ========================================================= //
 
@@ -162,49 +162,59 @@ const DEFAULTS: Flags = {
 let flags: Flags = DEFAULTS
 let scheduled = false
 
+// One broken feature must never stop the rest of the features from applying.
+const runFeature = (init: (enabled: boolean) => void, enabled: boolean): void => {
+    try {
+        init(enabled)
+    } catch (error) {
+        const errorMessage: string = `VeloxTube: feature failed. Feature initializer name: ${init}`
+        console.error(errorMessage, error)
+    }
+}
+
 const apply = (): void => {
     scheduled = false
-    initInFeedAds(flags.inFeedAdsEnabled)
-    initMoreFromYouTube(flags.moreFromYouTubeEnabled)
-    initExploreMenu(flags.exploreMenuEnabled)
+    runFeature(initInFeedAds, flags.inFeedAdsEnabled)
+    runFeature(initMoreFromYouTube, flags.moreFromYouTubeEnabled)
+    runFeature(initExploreMenu, flags.exploreMenuEnabled)
     document.documentElement.classList.toggle(HOME_CLASS, flags.homeShortsEnabled)
     document.documentElement.classList.toggle(SEARCH_CLASS, flags.searchShortsEnabled)
     document.documentElement.classList.toggle(SIDEBAR_CLASS, flags.sidebarShortsEnabled)
 
     // =========== HOME PAGE =========== //
-    initHomeShorts(flags.homeShortsEnabled)
-    initYoutubeFeaturedHider(flags.homeYoutubeFeaturedEnabled)
-    initHomeFeedHider(flags.homeHomeFeedEnabled)
-    initSubcriptionsButtonHider(flags.homeSubscriptionsButtonEnabled)
+    runFeature(initHomeShorts, flags.homeShortsEnabled)
+    runFeature(initYoutubeFeaturedHider, flags.homeYoutubeFeaturedEnabled)
+    runFeature(initHomeFeedHider, flags.homeHomeFeedEnabled)
+    runFeature(initSubcriptionsButtonHider, flags.homeSubscriptionsButtonEnabled)
     // ================================== //
 
 
-    initSearchShorts(flags.searchShortsEnabled)
+    runFeature(initSearchShorts, flags.searchShortsEnabled)
 
     // =========== SIDEBAR MENU =========== //
-    initSidebarShorts(flags.sidebarShortsEnabled)
-    initSidebarFooter(flags.sidebarFooterEnabled)
-    initSubcriptionsMenuHider(flags.sidebarSubscriptionsMenuEnabled)
+    runFeature(initSidebarShorts, flags.sidebarShortsEnabled)
+    runFeature(initSidebarFooter, flags.sidebarFooterEnabled)
+    runFeature(initSubcriptionsMenuHider, flags.sidebarSubscriptionsMenuEnabled)
     // ================================== //
 
 
-    initTopLogo(flags.topLogoEnabled)
-    initNotificationBell(flags.notificationBellEnabled)
-    initMicButton(flags.micButtonEnabled)
+    runFeature(initTopLogo, flags.topLogoEnabled)
+    runFeature(initNotificationBell, flags.notificationBellEnabled)
+    runFeature(initMicButton, flags.micButtonEnabled)
 
     // Video Page
-    initVideoJoinButtonHider(flags.videoJoinButtonEnabled)
-    initVideoThanksButton(flags.videoThanksButtonEnabled)
-    initVideoShareButtonHider(flags.videoShareButtonEnabled)
-    initRelatedVideosHider(flags.videoShowRelatedVideosEnabled)
-    initVideoCommentsHider(flags.videoShowCommentsEnabled)
-    initDescriptionHider(flags.videoShowDescriptionEnabled)
-    initLiveChatHider(flags.videoShowLiveChatEnabled)
+    runFeature(initVideoJoinButtonHider, flags.videoJoinButtonEnabled)
+    runFeature(initVideoThanksButton, flags.videoThanksButtonEnabled)
+    runFeature(initVideoShareButtonHider, flags.videoShareButtonEnabled)
+    runFeature(initRelatedVideosHider, flags.videoShowRelatedVideosEnabled)
+    runFeature(initVideoCommentsHider, flags.videoShowCommentsEnabled)
+    runFeature(initvideoDescriptionHider, flags.videoShowDescriptionEnabled)
+    runFeature(initLiveChatHider, flags.videoShowLiveChatEnabled)
     // ==================================================== //
 
 
-    initChannelJoinButton(flags.channelJoinButtonEnabled)
-    initTopicBar(flags.topicBarEnabled)
+    runFeature(initChannelJoinButton, flags.channelJoinButtonEnabled)
+    runFeature(initTopicBar, flags.topicBarEnabled)
 }
 
 const schedule = (): void => {

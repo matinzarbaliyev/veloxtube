@@ -1,7 +1,8 @@
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-watch-metadata"
+const SELECTOR = "#description"
 const HIDING_CSS = `
-    ytd-watch-metadata #description {
+    ${ROOT} ${SELECTOR} {
         display: none !important;
     }
 `
@@ -21,8 +22,8 @@ const removeDescription = (): void => {
     // Not on a watch page right now, so do not do anything
     if (!observedRoot) return;
 
-    for (const descriptionElement of observedRoot.querySelectorAll(HIDING_CSS)) {
-        descriptionElement.remove();
+    for (const videoDescriptionElement of observedRoot.querySelectorAll(SELECTOR)) {
+        videoDescriptionElement.remove();
     }
 };
 
@@ -73,7 +74,7 @@ const disconnectObserver = (): void => {
     removalScheduled = false;
 };
 
-export const initDescriptionHider = (enabled: boolean): void => {
+export const initvideoDescriptionHider = (enabled: boolean): void => {
     setStyleElement(enabled);
 
     if (!enabled) {

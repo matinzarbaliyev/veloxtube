@@ -1,7 +1,9 @@
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
+const ROOT = "ytd-guide-renderer"
+const SELECTOR =
+    'ytd-guide-section-renderer:has(ytd-guide-collapsible-section-entry-renderer a[href="/feed/subscriptions"])'
 const HIDING_CSS = `
-    ytd-guide-section-renderer:has(ytd-guide-collapsible-section-entry-renderer a[href="/feed/subscriptions"]
-    ) {
+    ${SELECTOR} {
         display: none !important;
     }
 `
@@ -15,14 +17,14 @@ const removeSubcriptionsMenu = (): void => {
     removalScheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(HIDING_CSS);
+        observedRoot = document.querySelector(ROOT);
     }
 
     // Not on a watch page right now, so do not do anything
     if (!observedRoot) return;
 
-    for (const descriptionElement of observedRoot.querySelectorAll(HIDING_CSS)) {
-        descriptionElement.remove();
+    for (const section of observedRoot.querySelectorAll(SELECTOR)) {
+        section.remove();
     }
 };
 
@@ -81,7 +83,7 @@ export const initSubcriptionsMenuHider = (enabled: boolean): void => {
         return;
     }
 
-    const root = document.querySelector(HIDING_CSS);
+    const root = document.querySelector(ROOT);
 
     if (root === observedRoot && root?.isConnected) {
         removeSubcriptionsMenu();

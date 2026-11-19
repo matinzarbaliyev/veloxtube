@@ -1,10 +1,9 @@
-const RICH_GRID_ROOT = "ytd-rich-grid-renderer"
-const BRAND_VIDEO_SECTION = "ytd-rich-section-renderer:has(ytd-brand-video-singleton-renderer)"
-
-const HIDE_YOUTUBE_FEATURED_CSS = `
-${RICH_GRID_ROOT} ${BRAND_VIDEO_SECTION} {
-    display: none !important;
-}
+const ROOT = "ytd-rich-grid-renderer"
+const SELECTOR = `${ROOT}:has(ytd-brand-video-singleton-renderer)`
+const HIDING_CSS = `
+    ${SELECTOR} {
+        display: none !important;
+    }
 `
 
 let styleElement: HTMLStyleElement | null = null;
@@ -16,14 +15,14 @@ const removeYoutubeFeatured = (): void => {
     removalScheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(RICH_GRID_ROOT);
+        observedRoot = document.querySelector(ROOT);
     }
 
     // Not on a watch page right now, so do not do anything
     if (!observedRoot) return;
 
-    for (const descriptionElement of observedRoot.querySelectorAll(HIDE_YOUTUBE_FEATURED_CSS)) {
-        descriptionElement.remove();
+    for (const youtubeFeaturedElement of observedRoot.querySelectorAll(SELECTOR)) {
+        youtubeFeaturedElement.remove();
     }
 };
 
@@ -63,7 +62,7 @@ const setStyleElement = (enabled: boolean): void => {
     }
 
     styleElement = document.createElement("style");
-    styleElement.textContent = HIDE_YOUTUBE_FEATURED_CSS;
+    styleElement.textContent = HIDING_CSS;
     (document.head ?? document.documentElement).append(styleElement);
 };
 
@@ -82,7 +81,7 @@ export const initYoutubeFeaturedHider = (enabled: boolean): void => {
         return;
     }
 
-    const root = document.querySelector(RICH_GRID_ROOT);
+    const root = document.querySelector(ROOT);
 
     if (root === observedRoot && root?.isConnected) {
         removeYoutubeFeatured();

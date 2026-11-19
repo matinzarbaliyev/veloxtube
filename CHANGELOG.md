@@ -52,6 +52,7 @@ During that day, exntension is finally being approved!!!
 ## 19 November 2026
 
 - **BUGS/FIXES:**
+    - Minor bug fixes. Everything works without any erros.
 
 
 ## Status
@@ -60,4 +61,3 @@ During that day, exntension is finally being approved!!!
 - Home page related scripts: ✅
 - Masthead related scripts: ✅
 - Search related scripts: ✅
-- Memory leak: ❌

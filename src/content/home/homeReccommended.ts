@@ -1,10 +1,9 @@
-const HOME_BROWSE = 'ytd-browse[page-subtype="home"]'
-const HOME_RESULTS = 'ytd-two-column-browse-results-renderer'
-
-const HIDE_HOME_FEED_CSS = `
-${HOME_BROWSE} ${HOME_RESULTS} {
-    display: none !important;
-}
+const ROOT = 'ytd-browse[page-subtype="home"]'
+const SELECTOR = `${ROOT} ytd-two-column-browse-results-renderer`
+const HIDING_CSS = `
+    ${SELECTOR} {
+        display: none !important;
+    }
 `
 
 let styleElement: HTMLStyleElement | null = null;
@@ -16,13 +15,13 @@ const removeHomeFeed = (): void => {
     removalScheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(HOME_BROWSE);
+        observedRoot = document.querySelector(ROOT);
     }
 
     // Not on a watch page right now, so do not do anything
     if (!observedRoot) return;
 
-    for (const descriptionElement of observedRoot.querySelectorAll(HIDE_HOME_FEED_CSS)) {
+    for (const descriptionElement of observedRoot.querySelectorAll(SELECTOR)) {
         descriptionElement.remove();
     }
 };
@@ -63,7 +62,7 @@ const setStyleElement = (enabled: boolean): void => {
     }
 
     styleElement = document.createElement("style");
-    styleElement.textContent = HIDE_HOME_FEED_CSS;
+    styleElement.textContent = HIDING_CSS;
     (document.head ?? document.documentElement).append(styleElement);
 };
 
@@ -82,7 +81,7 @@ export const initHomeFeedHider = (enabled: boolean): void => {
         return;
     }
 
-    const root = document.querySelector(HOME_BROWSE);
+    const root = document.querySelector(ROOT);
 
     if (root === observedRoot && root?.isConnected) {
         removeHomeFeed();
