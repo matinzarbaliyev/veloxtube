@@ -50,6 +50,8 @@ During that day, exntension is finally being approved!!!
     - Removal of Live Chat from video page works again.
 
 ## 19 November 2026
+- Removal of Youtube Playables Panel from home page.
+
 
 - **BUGS/FIXES:**
     - Minor bug fixes. Everything works without any erros.

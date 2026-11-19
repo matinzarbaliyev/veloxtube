@@ -4,6 +4,7 @@ import { initHomeShorts } from "./home/homeShorts"
 import { initYoutubeFeaturedHider } from "./home/youtubeFeatured"
 import { initHomeFeedHider } from "./home/homeReccommended"
 import { initSubcriptionsButtonHider } from "./home/homeSubcriptionsButton"
+import { initHomeYoutubePlayablesHider } from "./home/homeYoutubePlayables"
 // ========================================================= //
 
 
@@ -46,6 +47,7 @@ const KEYS = [
     "homeYoutubeFeaturedEnabled",
     "homeHomeFeedEnabled",
     "homeSubscriptionsButtonEnabled",
+    "homeYoutubePlayablesEnabled",
     // ====================== //
 
 
@@ -88,6 +90,7 @@ type Flags = {
     homeYoutubeFeaturedEnabled: boolean
     homeHomeFeedEnabled: boolean
     homeSubscriptionsButtonEnabled: boolean
+    homeYoutubePlayablesEnabled: boolean
     // ================================== //
 
     searchShortsEnabled: boolean
@@ -126,6 +129,7 @@ const DEFAULTS: Flags = {
     homeYoutubeFeaturedEnabled: false,
     homeHomeFeedEnabled: false,
     homeSubscriptionsButtonEnabled: false,
+    homeYoutubePlayablesEnabled: false,
     // ================================== //
 
     searchShortsEnabled: false,
@@ -186,6 +190,7 @@ const apply = (): void => {
     runFeature(initYoutubeFeaturedHider, flags.homeYoutubeFeaturedEnabled)
     runFeature(initHomeFeedHider, flags.homeHomeFeedEnabled)
     runFeature(initSubcriptionsButtonHider, flags.homeSubscriptionsButtonEnabled)
+    runFeature(initHomeYoutubePlayablesHider, flags.homeYoutubePlayablesEnabled)
     // ================================== //
 
 
