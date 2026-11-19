@@ -49,6 +49,10 @@ During that day, exntension is finally being approved!!!
     - Removal of Video Share Button from video page works again.
     - Removal of Live Chat from video page works again.
 
+## 19 November 2026
+
+- **BUGS/FIXES:**
+
 
 ## Status
 - Sidebar related scripts: ✅
@@ -56,3 +60,4 @@ During that day, exntension is finally being approved!!!
 - Home page related scripts: ✅
 - Masthead related scripts: ✅
 - Search related scripts: ✅
+- Memory leak: ❌

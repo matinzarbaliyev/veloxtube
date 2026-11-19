@@ -1,7 +1,8 @@
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-watch-flexy"
+const SELECTOR = "ytd-watch-flexy #comments"
 const HIDING_CSS = `
-    ytd-watch-flexy #comments {
+    ${SELECTOR} {
         display: none !important;
     }
 `
@@ -15,7 +16,7 @@ const removeComments = (): void => {
     scheduled = false;
 
     if (!observedRoot?.isConnected) {
-        observedRoot = document.querySelector(ROOT);
+        observedRoot = document.querySelector(SELECTOR);
     }
 
     if (!observedRoot) return;
