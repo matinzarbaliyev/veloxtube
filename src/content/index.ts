@@ -9,6 +9,7 @@ import { initHomeYoutubePlayablesHider } from "./home/homeYoutubePlayables"
 
 // ========================= SEARCH PAGE ======================== //
 import { initSearchShortsHider } from "./search/searchShorts"
+import { initSearchTopicBarHider } from "./search/searchTopicBar"
 // ============================================================== //
 
 import { initSidebarShorts } from "./sidebar/sidebarShorts"
@@ -29,7 +30,6 @@ import { initVideoMoreActionsHiders } from "./video/videoMoreActions"
 // ========================================================= //
 
 import { initChannelJoinButton } from "./channel/joinButton"
-import { initTopicBar } from "./feeds/topicBar"
 
 // ======================= SIBDEBAR MENU ========================= //
 import { initMoreFromYouTube } from "./sidebar/moreFromYouTube"
@@ -56,6 +56,7 @@ const KEYS = [
 
     // ===== SEARCH PAGE ===== //
     "searchShortsEnabled",
+    "searchTopicBarEnabled",
     // ====================== //
 
 
@@ -103,6 +104,7 @@ type Flags = {
 
     // =========== SEARCH PAGE =========== //
     searchShortsEnabled: boolean
+    searchTopicBarEnabled: boolean
     // ================================== //
 
     sidebarShortsEnabled: boolean
@@ -146,6 +148,7 @@ const DEFAULTS: Flags = {
 
     // =========== SEARCH PAGE =========== //
     searchShortsEnabled: false,
+    searchTopicBarEnabled: false,
     // ================================== //
 
 
@@ -214,6 +217,7 @@ const apply = (): void => {
 
     // ======================== SEARCH PAGE ======================== //
     runFeature(initSearchShortsHider, flags.searchShortsEnabled)
+    runFeature(initSearchTopicBarHider, flags.searchTopicBarEnabled)
     // ============================================================= //
 
     // =========== SIDEBAR MENU =========== //
@@ -240,7 +244,6 @@ const apply = (): void => {
 
 
     runFeature(initChannelJoinButton, flags.channelJoinButtonEnabled)
-    runFeature(initTopicBar, flags.topicBarEnabled)
 }
 
 const schedule = (): void => {

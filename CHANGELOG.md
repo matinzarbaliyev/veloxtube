@@ -53,7 +53,7 @@ During that day, exntension is finally being approved!!!
 - Removal of Youtube Playables Panel from home page.
 - Removal of More Actions button from video page.
 - Removal of Shorts from search page.
-
+- Removal of Topic Bar from search page.
 
 
 - **BUGS/FIXES:**
