@@ -55,6 +55,8 @@ During that day, exntension is finally being approved!!!
 - Removal of Shorts from search page.
 - Removal of Topic Bar from search page.
 - Removal of Topic Bar from home page.
+- Removal of Channel Wallpaper from channel page.
+
 
 
 - **BUGS/FIXES:**
