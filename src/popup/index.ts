@@ -9,7 +9,11 @@ const KEYS = [
     // ====================== //
 
 
+    // ===== SEARCH PAGE ===== //
     "searchShortsEnabled",
+    // ====================== //
+
+
     "sidebarShortsEnabled",
     "sidebarFooterEnabled",
     "topLogoEnabled",
@@ -65,7 +69,11 @@ const DEFAULTS: Record<Key, boolean> = {
 
 
 
+    // =========== SEARCH PAGE =========== //
     searchShortsEnabled: false,
+    // ================================== //   
+
+
     sidebarShortsEnabled: false,
     sidebarFooterEnabled: false,
     topLogoEnabled: false,

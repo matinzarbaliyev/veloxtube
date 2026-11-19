@@ -7,8 +7,10 @@ import { initSubcriptionsButtonHider } from "./home/homeSubcriptionsButton"
 import { initHomeYoutubePlayablesHider } from "./home/homeYoutubePlayables"
 // ========================================================= //
 
+// ========================= SEARCH PAGE ======================== //
+import { initSearchShortsHider } from "./search/searchShorts"
+// ============================================================== //
 
-import { initSearchShorts } from "./search/searchShorts"
 import { initSidebarShorts } from "./sidebar/sidebarShorts"
 import { initSidebarFooter } from "./sidebar/sidebarFooter"
 import { initTopLogo } from "./masthead/topLogo"
@@ -52,7 +54,11 @@ const KEYS = [
     // ====================== //
 
 
+    // ===== SEARCH PAGE ===== //
     "searchShortsEnabled",
+    // ====================== //
+
+
     "sidebarShortsEnabled",
     "sidebarFooterEnabled",
     "topLogoEnabled",
@@ -95,7 +101,10 @@ type Flags = {
     homeYoutubePlayablesEnabled: boolean
     // ================================== //
 
+    // =========== SEARCH PAGE =========== //
     searchShortsEnabled: boolean
+    // ================================== //
+
     sidebarShortsEnabled: boolean
     sidebarFooterEnabled: boolean
     topLogoEnabled: boolean
@@ -135,7 +144,12 @@ const DEFAULTS: Flags = {
     homeYoutubePlayablesEnabled: false,
     // ================================== //
 
+    // =========== SEARCH PAGE =========== //
     searchShortsEnabled: false,
+    // ================================== //
+
+
+
     sidebarShortsEnabled: false,
     sidebarFooterEnabled: false,
     topLogoEnabled: false,
@@ -198,7 +212,9 @@ const apply = (): void => {
     // ================================== //
 
 
-    runFeature(initSearchShorts, flags.searchShortsEnabled)
+    // ======================== SEARCH PAGE ======================== //
+    runFeature(initSearchShortsHider, flags.searchShortsEnabled)
+    // ============================================================= //
 
     // =========== SIDEBAR MENU =========== //
     runFeature(initSidebarShorts, flags.sidebarShortsEnabled)

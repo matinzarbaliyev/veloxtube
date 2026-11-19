@@ -52,6 +52,8 @@ During that day, exntension is finally being approved!!!
 ## 19 November 2026
 - Removal of Youtube Playables Panel from home page.
 - Removal of More Actions button from video page.
+- Removal of Shorts from search page.
+
 
 
 - **BUGS/FIXES:**
