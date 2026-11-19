@@ -23,6 +23,7 @@ import { initRelatedVideosHider } from "./video/videoRelatedVideos"
 import { initVideoCommentsHider } from "./video/videoComments"
 import { initvideoDescriptionHider } from "./video/videoDescription"
 import { initLiveChatHider } from "./video/videoLiveChat"
+import { initVideoMoreActionsHiders } from "./video/videoMoreActions"
 // ========================================================= //
 
 import { initChannelJoinButton } from "./channel/joinButton"
@@ -66,6 +67,7 @@ const KEYS = [
     "videoShowCommentsEnabled",
     "videoShowDescriptionEnabled",
     "videoShowLiveChatEnabled",
+    "videoMoreActionsEnabled",
     // ====================== //
 
 
@@ -108,6 +110,7 @@ type Flags = {
     videoShowCommentsEnabled: boolean
     videoShowDescriptionEnabled: boolean
     videoShowLiveChatEnabled: boolean
+    videoMoreActionsEnabled: boolean
     // ================================== //
 
     channelJoinButtonEnabled: boolean
@@ -147,6 +150,7 @@ const DEFAULTS: Flags = {
     videoShowCommentsEnabled: false,
     videoShowDescriptionEnabled: false,
     videoShowLiveChatEnabled: false,
+    videoMoreActionsEnabled: false,
     // ================================== //
 
     channelJoinButtonEnabled: false,
@@ -215,6 +219,7 @@ const apply = (): void => {
     runFeature(initVideoCommentsHider, flags.videoShowCommentsEnabled)
     runFeature(initvideoDescriptionHider, flags.videoShowDescriptionEnabled)
     runFeature(initLiveChatHider, flags.videoShowLiveChatEnabled)
+    runFeature(initVideoMoreActionsHiders, flags.videoMoreActionsEnabled)
     // ==================================================== //
 
 
