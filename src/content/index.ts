@@ -34,6 +34,7 @@ import { initVideoMoreActionsHiders } from "./video/videoMoreActions"
 import { initChannelJoinButton } from "./channel/joinButton"
 import { initChannelWallpaperHider } from "./channel/channelWallpaper"
 import { initChannelFeaturedContentHider } from "./channel/channelFeaturedContent"
+import { initChannelShortsHider } from "./channel/channelShorts"
 // =============================================================== //
 
 
@@ -88,6 +89,7 @@ const KEYS = [
     "channelWallpaperEnabled",
     "channelJoinButtonEnabled",
     "channelFeaturedContentEnabled",
+    "channelShortsEnabled",
     // ========================== //
 
 
@@ -138,6 +140,7 @@ type Flags = {
     channelJoinButtonEnabled: boolean
     channelWallpaperEnabled: boolean,
     channelFeaturedContentEnabled: boolean,
+    channelShortsEnabled: boolean,
 
     // =========== SIDEBAR MENU =========== //
     moreFromYouTubeEnabled: boolean
@@ -186,6 +189,7 @@ const DEFAULTS: Flags = {
     channelJoinButtonEnabled: false,
     channelWallpaperEnabled: false,
     channelFeaturedContentEnabled: false,
+    channelShortsEnabled: false,
 
     // =========== SIDEBAR MENU =========== //
     moreFromYouTubeEnabled: false,
@@ -261,6 +265,7 @@ const apply = (): void => {
     runFeature(initChannelJoinButton, flags.channelJoinButtonEnabled)
     runFeature(initChannelWallpaperHider, flags.channelWallpaperEnabled)
     runFeature(initChannelFeaturedContentHider, flags.channelFeaturedContentEnabled)
+    runFeature(initChannelShortsHider, flags.channelShortsEnabled)
 }
 
 const schedule = (): void => {

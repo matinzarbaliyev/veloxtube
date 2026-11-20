@@ -64,6 +64,7 @@ During that day, exntension is finally being approved!!!
 
 ## 20 November 2026
 - Removal of Featured Content from channel page.
+- Removal of Shorts from channel page.
 
 
 ## Status
