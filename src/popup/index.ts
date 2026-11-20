@@ -35,6 +35,7 @@ const KEYS = [
 
     "channelJoinButtonEnabled",
     "channelWallpaperEnabled",
+    "channelFeaturedContentEnabled",
 
 
     "moreFromYouTubeEnabled",
@@ -96,6 +97,7 @@ const DEFAULTS: Record<Key, boolean> = {
 
     channelJoinButtonEnabled: false,
     channelWallpaperEnabled: false,
+    channelFeaturedContentEnabled: false,
 
 
     moreFromYouTubeEnabled: false,

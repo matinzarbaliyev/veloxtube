@@ -62,6 +62,10 @@ During that day, exntension is finally being approved!!!
 - **BUGS/FIXES:**
     - Minor bug fixes. Everything works without any erros.
 
+## 20 November 2026
+- Removal of Featured Content from channel page.
+
+
 ## Status
 - Sidebar related scripts: ✅
 - Video page related scripts: ✅
