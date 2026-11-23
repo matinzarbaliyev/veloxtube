@@ -48,15 +48,7 @@ const KEYS = [
 
 type Key = (typeof KEYS)[number]
 
-/*
-NOTES ON THEME_KEY
-    Theme is intentionally NOT in KEYS: it uses its own storage key and does not
-    reload the YouTube tab - if the page reloads at every toggle switch of dark/light theme,
-    the user experiene would be horrible.
-    
-    Besides this, declaring it as a named constant makes that explicit
-    and easier for everyone to read and udnerstand the code.
-*/
+
 const THEME_KEY = "lightThemeEnabled" as const
 const THEME_DEFAULT = false // dark by default
 
