@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-item-section-renderer"
 const SELECTOR = ":has(ytd-channel-featured-content-renderer)"
@@ -22,7 +24,7 @@ const removeChannelFeaturedContent = (): void => {
     if (!observedRoot) return;
 
     for (const comments of observedRoot.querySelectorAll(SELECTOR)) {
-        comments.remove();
+        rememberRemoval("channelFeaturedContentEnabled", comments);
     }
 };
 

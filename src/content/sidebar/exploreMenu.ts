@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 //// NOTE: FOR FUTURE, EVERYTHING HERE IS ALREADY KINDA WELL-WRITTEN, DO NOT TOUCH IT
 
 const SECTION_CLASS = "veloxtube-explore-menu";
@@ -43,7 +45,7 @@ const isExploreSection = (section: Element): boolean =>
 
 const detachSection = (section: Element): void => {
     section.classList.add(SECTION_CLASS);
-    section.remove();
+    rememberRemoval("exploreMenuEnabled", section);
 };
 
 const getGuideRoot = (): Element | null => {
@@ -91,7 +93,7 @@ const sweepEntries = (root: Element | null, selector: string): void => {
     }
 
     for (const entry of root.querySelectorAll(selector)) {
-        entry.remove();
+        rememberRemoval("exploreMenuEnabled", entry);
     }
 };
 
@@ -105,7 +107,7 @@ const purge = (node: Element): void => {
 
     if (entry) {
         if (entry.matches(EXPLORE_ENTRY)) {
-            entry.remove();
+            rememberRemoval("exploreMenuEnabled", entry);
         }
 
         return;

@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-tabbed-page-header"
 const SELECTOR = "#page-header-banner-sizer"
@@ -22,7 +24,7 @@ const removeChannelWallpaper = (): void => {
     if (!observedRoot) return;
 
     for (const comments of observedRoot.querySelectorAll(SELECTOR)) {
-        comments.remove();
+        rememberRemoval("channelWallpaperEnabled", comments);
     }
 };
 

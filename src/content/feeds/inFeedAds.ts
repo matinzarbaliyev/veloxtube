@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const SPONSORED_MARKERS = [
     "badge-shape.ytBadgeShapeAd",
     "badge-shape.yt-badge-shape--ad",
@@ -74,21 +76,21 @@ const removeAd = (ad: Element): void => {
     const richItem = ad.closest("ytd-rich-item-renderer");
 
     if (richItem) {
-        richItem.remove();
+        rememberRemoval("inFeedAdsEnabled", richItem);
         return;
     }
 
     const video = ad.closest("ytd-video-renderer");
 
     if (video) {
-        video.remove();
+        rememberRemoval("inFeedAdsEnabled", video);
         return;
     }
 
     const lockup = ad.closest("yt-lockup-view-model");
 
     if (lockup) {
-        lockup.remove();
+        rememberRemoval("inFeedAdsEnabled", lockup);
         return;
     }
 
@@ -96,30 +98,30 @@ const removeAd = (ad: Element): void => {
     const contents = section?.querySelector(":scope > #contents");
 
     if (section && contents?.childElementCount === 1) {
-        section.remove();
+        rememberRemoval("inFeedAdsEnabled", section);
         return;
     }
 
-    ad.remove();
+    rememberRemoval("inFeedAdsEnabled", ad);
 };
 
 const removeSponsoredCard = (marker: Element): void => {
     const richItem = marker.closest("ytd-rich-item-renderer");
 
     if (richItem) {
-        richItem.remove();
+        rememberRemoval("inFeedAdsEnabled", richItem);
         return;
     }
 
     const video = marker.closest("ytd-video-renderer");
 
     if (video) {
-        video.remove();
+        rememberRemoval("inFeedAdsEnabled", video);
         return;
     }
 
     const lockup = marker.closest("yt-lockup-view-model");
-    (lockup ?? marker).remove();
+    rememberRemoval("inFeedAdsEnabled", lockup ?? marker);
 };
 
 const removeMatch = (element: Element): void => {

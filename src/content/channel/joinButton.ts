@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const CHANNEL_PAGE = 'ytd-browse[page-subtype="channels"]';
 const HEADER_CONTAINERS = "yt-page-header-renderer, ytd-c4-tabbed-header-renderer";
 const SHELF_CONTAINER = "ytd-recognition-shelf-renderer";
@@ -49,13 +51,13 @@ const detachJoinButtons = (): void => {
 
     for (const header of observedRoot.querySelectorAll(HEADER_CONTAINERS)) {
         for (const joinButton of header.querySelectorAll(JOIN_TARGETS_SELECTOR)) {
-            joinButton.remove();
+            rememberRemoval("channelJoinButtonEnabled", joinButton);
         }
     }
 
     for (const shelf of observedRoot.querySelectorAll(SHELF_CONTAINER)) {
         for (const joinButton of shelf.querySelectorAll(SHELF_TARGETS_SELECTOR)) {
-            joinButton.remove();
+            rememberRemoval("channelJoinButtonEnabled", joinButton);
         }
     }
 };

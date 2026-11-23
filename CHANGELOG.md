@@ -74,6 +74,10 @@ During that day, exntension is finally being approved!!!
 - **Reload On Change Toggle** — New switch controls whether feature changes reload the open YouTube tab; off applies changes live through `storage.onChanged`. Theme changes and the reload toggle itself never reload the tab. The reload switch has a hover/focus "i" tooltip explaining both modes. Features using `.remove()` cannot restore nodes live; they return on the next YouTube navigation.
     - Suggestion was made by **Akbar Tangirov** & **Marick Suryanka**
 
+- **No need for tab reload** - now script can remember which node as "deleted" and thus being able to retrieve it. For details, check `shared` folder, file `removalRegistry.ts`. In short, the script replaces DOM elements with **comment** placeholders by feature key so they can be restored in place later, or clears the registry without restoring remaining elements.
+    - Suggestion was made by **Marick Suryanka**
+ 
+
 ## Status
 - Sidebar related scripts: ✅
 - Video page related scripts: ✅

@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-mini-guide-renderer"
 const SELECTOR = `ytd-mini-guide-entry-renderer:has(a#endpoint[href="/feed/subscriptions"])`
@@ -23,7 +25,7 @@ const removeSubscriptionsButton = (): void => {
     if (!observedRoot) return;
 
     for (const descriptionElement of observedRoot.querySelectorAll(SELECTOR)) {
-        descriptionElement.remove();
+        rememberRemoval("homeSubscriptionsButtonEnabled", descriptionElement);
     }
 };
 

@@ -1,4 +1,7 @@
+import { rememberRemoval } from "./removalRegistry";
+
 type CleanerOptions = {
+    featureKey: string;
     container: string;
     matcher: string;
     subtree?: boolean;
@@ -7,6 +10,7 @@ type CleanerOptions = {
 };
 
 export const createShortsCleaner = ({
+    featureKey,
     container,
     matcher,
     subtree = false,
@@ -18,16 +22,16 @@ export const createShortsCleaner = ({
             const richSection = element.closest("ytd-rich-section-renderer");
 
             if (richSection) {
-                richSection.remove();
+                rememberRemoval(featureKey, richSection);
                 return;
             }
         }
 
         const section = pruneEmptySections ? element.closest("ytd-item-section-renderer") : null;
-        element.remove();
+        rememberRemoval(featureKey, element);
 
         if (section?.querySelector("#contents")?.childElementCount === 0) {
-            section.remove();
+            rememberRemoval(featureKey, section);
         }
     };
 

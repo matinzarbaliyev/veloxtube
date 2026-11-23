@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-watch-metadata"
 const SELECTOR = "#description"
@@ -23,7 +25,7 @@ const removeDescription = (): void => {
     if (!observedRoot) return;
 
     for (const videoDescriptionElement of observedRoot.querySelectorAll(SELECTOR)) {
-        videoDescriptionElement.remove();
+        rememberRemoval("videoShowDescriptionEnabled", videoDescriptionElement);
     }
 };
 

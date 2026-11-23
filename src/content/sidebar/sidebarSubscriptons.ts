@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-guide-renderer"
 const SELECTOR =
@@ -24,7 +26,7 @@ const removeSubcriptionsMenu = (): void => {
     if (!observedRoot) return;
 
     for (const section of observedRoot.querySelectorAll(SELECTOR)) {
-        section.remove();
+        rememberRemoval("sidebarSubscriptionsMenuEnabled", section);
     }
 };
 

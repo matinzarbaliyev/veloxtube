@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const FOOTER_SELECTOR = "#guide-content ytd-guide-renderer #footer";
 const FOOTER_CSS = `${FOOTER_SELECTOR} { display: none !important; }`;
 const GUIDE_ROOT = "#guide-wrapper";
@@ -16,7 +18,7 @@ const detachFooters = (): void => {
     }
 
     for (const footer of document.querySelectorAll(FOOTER_SELECTOR)) {
-        footer.remove();
+        rememberRemoval("sidebarFooterEnabled", footer);
     }
 };
 

@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const TARGET_TITLE = "More from YouTube";
 const SECTION_CLASS = "veloxtube-more-from-youtube";
 const SECTION_SELECTOR = "ytd-guide-section-renderer";
@@ -37,7 +39,7 @@ const detachSections = (): void => {
 
         if (title === TARGET_TITLE) {
             section.classList.add(SECTION_CLASS);
-            section.remove();
+            rememberRemoval("moreFromYouTubeEnabled", section);
         }
     }
 };

@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-search-header-renderer"
 const SELECTOR = "#chip-bar"
@@ -22,7 +24,7 @@ const removeChipBar = (): void => {
     if (!observedRoot) return;
 
     for (const relatedVideo of observedRoot.querySelectorAll(SELECTOR)) {
-        relatedVideo.remove();
+        rememberRemoval("searchTopicBarEnabled", relatedVideo);
     }
 };
 

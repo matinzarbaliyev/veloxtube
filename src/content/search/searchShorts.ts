@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "grid-shelf-view-model"
 const SELECTOR = ROOT
@@ -22,7 +24,7 @@ const removeShorts = (): void => {
     if (!observedRoot) return;
 
     for (const relatedVideo of observedRoot.querySelectorAll(SELECTOR)) {
-        relatedVideo.remove();
+        rememberRemoval("searchShortsEnabled", relatedVideo);
     }
 };
 

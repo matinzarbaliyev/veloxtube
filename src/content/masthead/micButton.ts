@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const MASTHEAD = "ytd-masthead";
 const MIC_TYPES = ":is(#voice-search-button, ytd-voice-search-button-renderer)";
 const MIC_SELECTOR = `${MASTHEAD} ${MIC_TYPES}`;
@@ -25,7 +27,7 @@ const detachMic = (): void => {
     }
 
     for (const mic of micRoot.querySelectorAll(MIC_TYPES)) {
-        mic.remove();
+        rememberRemoval("micButtonEnabled", mic);
     }
 };
 

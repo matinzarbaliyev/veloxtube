@@ -46,7 +46,7 @@ import { initSubcriptionsMenuHider } from "./sidebar/sidebarSubscriptons"
 
 
 import { initInFeedAds } from "./feeds/inFeedAds"
-import { clearAllRemovals } from "./shared/removalRegistry"
+import { clearAllRemovals, restoreRemovals } from "./shared/removalRegistry"
 
 const HOME_CLASS = "veloxtube-home"
 const SEARCH_CLASS = "veloxtube-search"
@@ -207,8 +207,16 @@ let flags: Flags = DEFAULTS
 let scheduled = false
 
 // One broken feature must never stop the rest of the features from applying.
-const runFeature = (init: (enabled: boolean) => void, enabled: boolean): void => {
+const runFeature = (
+    key: keyof Flags,
+    init: (enabled: boolean) => void,
+    enabled: boolean,
+): void => {
     try {
+        if (!enabled) {
+            restoreRemovals(key)
+        }
+
         init(enabled)
     } catch (error) {
         const errorMessage: string = `VeloxTube: feature failed. Feature initializer name: ${init.name}`
@@ -218,55 +226,55 @@ const runFeature = (init: (enabled: boolean) => void, enabled: boolean): void =>
 
 const apply = (): void => {
     scheduled = false
-    runFeature(initInFeedAds, flags.inFeedAdsEnabled)
-    runFeature(initMoreFromYouTube, flags.moreFromYouTubeEnabled)
-    runFeature(initExploreMenu, flags.exploreMenuEnabled)
+    runFeature("inFeedAdsEnabled", initInFeedAds, flags.inFeedAdsEnabled)
+    runFeature("moreFromYouTubeEnabled", initMoreFromYouTube, flags.moreFromYouTubeEnabled)
+    runFeature("exploreMenuEnabled", initExploreMenu, flags.exploreMenuEnabled)
     document.documentElement.classList.toggle(HOME_CLASS, flags.homeShortsEnabled)
     document.documentElement.classList.toggle(SEARCH_CLASS, flags.searchShortsEnabled)
     document.documentElement.classList.toggle(SIDEBAR_CLASS, flags.sidebarShortsEnabled)
 
     // =============================== HOME PAGE =============================== //
-    runFeature(initHomeShorts, flags.homeShortsEnabled)
-    runFeature(initYoutubeFeaturedHider, flags.homeYoutubeFeaturedEnabled)
-    runFeature(initHomeFeedHider, flags.homeHomeFeedEnabled)
-    runFeature(initSubcriptionsButtonHider, flags.homeSubscriptionsButtonEnabled)
-    runFeature(initHomeYoutubePlayablesHider, flags.homeYoutubePlayablesEnabled)
-    runFeature(initHomeTopicBarHider, flags.homeTopicBarEnabled)
+    runFeature("homeShortsEnabled", initHomeShorts, flags.homeShortsEnabled)
+    runFeature("homeYoutubeFeaturedEnabled", initYoutubeFeaturedHider, flags.homeYoutubeFeaturedEnabled)
+    runFeature("homeHomeFeedEnabled", initHomeFeedHider, flags.homeHomeFeedEnabled)
+    runFeature("homeSubscriptionsButtonEnabled", initSubcriptionsButtonHider, flags.homeSubscriptionsButtonEnabled)
+    runFeature("homeYoutubePlayablesEnabled", initHomeYoutubePlayablesHider, flags.homeYoutubePlayablesEnabled)
+    runFeature("homeTopicBarEnabled", initHomeTopicBarHider, flags.homeTopicBarEnabled)
     // ========================================================================= //
 
 
     // ======================== SEARCH PAGE ======================== //
-    runFeature(initSearchShortsHider, flags.searchShortsEnabled)
-    runFeature(initSearchTopicBarHider, flags.searchTopicBarEnabled)
+    runFeature("searchShortsEnabled", initSearchShortsHider, flags.searchShortsEnabled)
+    runFeature("searchTopicBarEnabled", initSearchTopicBarHider, flags.searchTopicBarEnabled)
     // ============================================================= //
 
     // =========== SIDEBAR MENU =========== //
-    runFeature(initSidebarShorts, flags.sidebarShortsEnabled)
-    runFeature(initSidebarFooter, flags.sidebarFooterEnabled)
-    runFeature(initSubcriptionsMenuHider, flags.sidebarSubscriptionsMenuEnabled)
+    runFeature("sidebarShortsEnabled", initSidebarShorts, flags.sidebarShortsEnabled)
+    runFeature("sidebarFooterEnabled", initSidebarFooter, flags.sidebarFooterEnabled)
+    runFeature("sidebarSubscriptionsMenuEnabled", initSubcriptionsMenuHider, flags.sidebarSubscriptionsMenuEnabled)
     // ================================== //
 
 
-    runFeature(initTopLogo, flags.topLogoEnabled)
-    runFeature(initNotificationBell, flags.notificationBellEnabled)
-    runFeature(initMicButton, flags.micButtonEnabled)
+    runFeature("topLogoEnabled", initTopLogo, flags.topLogoEnabled)
+    runFeature("notificationBellEnabled", initNotificationBell, flags.notificationBellEnabled)
+    runFeature("micButtonEnabled", initMicButton, flags.micButtonEnabled)
 
     // Video Page
-    runFeature(initVideoJoinButtonHider, flags.videoJoinButtonEnabled)
-    runFeature(initVideoThanksButton, flags.videoThanksButtonEnabled)
-    runFeature(initVideoShareButtonHider, flags.videoShareButtonEnabled)
-    runFeature(initRelatedVideosHider, flags.videoShowRelatedVideosEnabled)
-    runFeature(initVideoCommentsHider, flags.videoShowCommentsEnabled)
-    runFeature(initvideoDescriptionHider, flags.videoShowDescriptionEnabled)
-    runFeature(initLiveChatHider, flags.videoShowLiveChatEnabled)
-    runFeature(initVideoMoreActionsHiders, flags.videoMoreActionsEnabled)
+    runFeature("videoJoinButtonEnabled", initVideoJoinButtonHider, flags.videoJoinButtonEnabled)
+    runFeature("videoThanksButtonEnabled", initVideoThanksButton, flags.videoThanksButtonEnabled)
+    runFeature("videoShareButtonEnabled", initVideoShareButtonHider, flags.videoShareButtonEnabled)
+    runFeature("videoShowRelatedVideosEnabled", initRelatedVideosHider, flags.videoShowRelatedVideosEnabled)
+    runFeature("videoShowCommentsEnabled", initVideoCommentsHider, flags.videoShowCommentsEnabled)
+    runFeature("videoShowDescriptionEnabled", initvideoDescriptionHider, flags.videoShowDescriptionEnabled)
+    runFeature("videoShowLiveChatEnabled", initLiveChatHider, flags.videoShowLiveChatEnabled)
+    runFeature("videoMoreActionsEnabled", initVideoMoreActionsHiders, flags.videoMoreActionsEnabled)
     // ==================================================== //
 
 
-    runFeature(initChannelJoinButton, flags.channelJoinButtonEnabled)
-    runFeature(initChannelWallpaperHider, flags.channelWallpaperEnabled)
-    runFeature(initChannelFeaturedContentHider, flags.channelFeaturedContentEnabled)
-    runFeature(initChannelShortsHider, flags.channelShortsEnabled)
+    runFeature("channelJoinButtonEnabled", initChannelJoinButton, flags.channelJoinButtonEnabled)
+    runFeature("channelWallpaperEnabled", initChannelWallpaperHider, flags.channelWallpaperEnabled)
+    runFeature("channelFeaturedContentEnabled", initChannelFeaturedContentHider, flags.channelFeaturedContentEnabled)
+    runFeature("channelShortsEnabled", initChannelShortsHider, flags.channelShortsEnabled)
 }
 
 const schedule = (): void => {

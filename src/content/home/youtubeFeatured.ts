@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const ROOT = "ytd-rich-grid-renderer"
 const SELECTOR = `${ROOT}:has(ytd-brand-video-singleton-renderer)`
 const HIDING_CSS = `
@@ -22,7 +24,7 @@ const removeYoutubeFeatured = (): void => {
     if (!observedRoot) return;
 
     for (const youtubeFeaturedElement of observedRoot.querySelectorAll(SELECTOR)) {
-        youtubeFeaturedElement.remove();
+        rememberRemoval("homeYoutubeFeaturedEnabled", youtubeFeaturedElement);
     }
 };
 

@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 
 const ROOT = "ytd-watch-flexy"
@@ -33,7 +35,7 @@ const removeHomeFeed = (): void => {
     // Combine both selectors with a comma so querySelectorAll finds both
     const combinedSelector = `${SHARE_SELECTOR_CHAT}, ${SHARE_SELECTOR_TEASER_CAROUSEL}`;
     for (const descriptionElement of observedRoot.querySelectorAll(combinedSelector)) {
-        descriptionElement.remove();
+        rememberRemoval("videoShowLiveChatEnabled", descriptionElement);
     }
 };
 

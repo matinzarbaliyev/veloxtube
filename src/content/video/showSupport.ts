@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const WATCH_METADATA = "ytd-watch-metadata";
 const BUTTON = ":is(button-view-model, yt-button-view-model, ytd-button-renderer)";
 const THANKS_LABEL = ':is([aria-label*="Thanks" i], [title*="Thanks" i])';
@@ -19,7 +21,7 @@ const detachThanksButton = (): void => {
     if (!observedRoot) return;
 
     for (const joinButton of observedRoot.querySelectorAll(THANKS_BUTTON)) {
-        joinButton.remove();
+        rememberRemoval("videoThanksButtonEnabled", joinButton);
     }
 };
 

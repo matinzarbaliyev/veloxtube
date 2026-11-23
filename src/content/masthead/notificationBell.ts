@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const MASTHEAD = "ytd-masthead";
 const BELL_CONTAINER = `${MASTHEAD} #buttons`;
 const BELL_TYPES = ":is(ytd-notification-topbar-button-renderer, #notification-button)";
@@ -26,7 +28,7 @@ const detachBells = (): void => {
     }
 
     for (const bell of bellContainer.querySelectorAll(BELL_TYPES)) {
-        bell.remove();
+        rememberRemoval("notificationBellEnabled", bell);
     }
 };
 

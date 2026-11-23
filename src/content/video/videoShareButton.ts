@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 
 const ROOT = "ytd-watch-metadata"
@@ -28,7 +30,7 @@ const removeShareButton = (): void => {
 
     // Use SHARE_SELECTOR here instead of HIDING_CSS
     for (const joinButton of observedRoot.querySelectorAll(SHARE_SELECTOR)) {
-        joinButton.remove();
+        rememberRemoval("videoShareButtonEnabled", joinButton);
     }
 };
 

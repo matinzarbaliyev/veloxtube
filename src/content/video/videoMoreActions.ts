@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-menu-renderer"
 const SELECTOR = `${ROOT} > yt-button-shape:has([aria-label="More actions"])`
@@ -22,7 +24,7 @@ const removeMoreActions = (): void => {
     if (!observedRoot) return;
 
     for (const comments of observedRoot.querySelectorAll(SELECTOR)) {
-        comments.remove();
+        rememberRemoval("videoMoreActionsEnabled", comments);
     }
 };
 

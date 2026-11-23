@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const ROOT = 'ytd-browse[page-subtype="home"]'
 const SELECTOR = `${ROOT} ytd-two-column-browse-results-renderer`
 const HIDING_CSS = `
@@ -22,7 +24,7 @@ const removeHomeFeed = (): void => {
     if (!observedRoot) return;
 
     for (const descriptionElement of observedRoot.querySelectorAll(SELECTOR)) {
-        descriptionElement.remove();
+        rememberRemoval("homeHomeFeedEnabled", descriptionElement);
     }
 };
 

@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-watch-flexy"
 const SELECTOR = "#related"
@@ -22,7 +24,7 @@ const removeRelatedVideos = (): void => {
     if (!observedRoot) return;
 
     for (const relatedVideo of observedRoot.querySelectorAll(SELECTOR)) {
-        relatedVideo.remove();
+        rememberRemoval("videoShowRelatedVideosEnabled", relatedVideo);
     }
 };
 

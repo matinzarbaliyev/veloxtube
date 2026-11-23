@@ -4,12 +4,14 @@ const MATCHER =
     'ytd-guide-entry-renderer:has(a[title="Shorts"]), ytd-guide-entry-renderer:has(a[aria-label="Shorts"]), ytd-guide-entry-renderer:has(a[href^="/shorts"]), ytd-mini-guide-entry-renderer:has(a[title="Shorts"]), ytd-mini-guide-entry-renderer:has(a[aria-label="Shorts"]), ytd-mini-guide-entry-renderer:has(a[href^="/shorts"]), ytd-mini-guide-entry-renderer[aria-label="Shorts"]';
 
 const cleanGuide = createShortsCleaner({
+    featureKey: "sidebarShortsEnabled",
     container: "ytd-guide-renderer",
     matcher: MATCHER,
     subtree: true,
 });
 
 const cleanMiniGuide = createShortsCleaner({
+    featureKey: "sidebarShortsEnabled",
     container: "ytd-mini-guide-renderer",
     matcher: MATCHER,
     subtree: true,

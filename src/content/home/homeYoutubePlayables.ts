@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-rich-section-renderer"
 const SELECTOR = `${ROOT}.ytd-rich-grid-renderer:has(ytd-mini-game-card-view-model)`
@@ -23,7 +25,7 @@ const removeYoutubePlayables = (): void => {
     if (!observedRoot) return;
 
     for (const videoDescriptionElement of observedRoot.querySelectorAll(SELECTOR)) {
-        videoDescriptionElement.remove();
+        rememberRemoval("homeYoutubePlayablesEnabled", videoDescriptionElement);
     }
 };
 

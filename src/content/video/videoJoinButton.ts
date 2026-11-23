@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 // DEVELOPMENT NOTE: THIS IS FULLY OPTIMIZED WORKING CSS PATTERN
 const ROOT = "ytd-video-owner-renderer"
 const SELECTOR = "#sponsor-button"
@@ -22,7 +24,7 @@ const removeJoinButton = (): void => {
     if (!observedRoot) return;
 
     for (const joinButton of observedRoot.querySelectorAll(SELECTOR)) {
-        joinButton.remove();
+        rememberRemoval("videoJoinButtonEnabled", joinButton);
     }
 };
 

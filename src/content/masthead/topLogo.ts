@@ -1,3 +1,5 @@
+import { rememberRemoval } from "../shared/removalRegistry";
+
 const ROOTS = ["ytd-masthead", "#guide-content #header"];
 
 const LOGO_SELECTOR = [
@@ -24,7 +26,7 @@ const detachLogos = (): void => {
     }
 
     for (const logo of document.querySelectorAll(LOGO_SELECTOR)) {
-        logo.remove();
+        rememberRemoval("topLogoEnabled", logo);
     }
 };
 
