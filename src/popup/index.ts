@@ -48,6 +48,10 @@ const KEYS = [
     "sidebarSubscriptionsMenuEnabled",
 
     "inFeedAdsEnabled",
+
+    // ===== POPUP ===== //
+    "reloadOnChangeEnabled",
+    // ================= //
 ] as const
 
 type Key = (typeof KEYS)[number]
@@ -106,6 +110,8 @@ const DEFAULTS: Record<Key, boolean> = {
     channelShortsEnabled: false,
 
     inFeedAdsEnabled: false,
+
+    reloadOnChangeEnabled: true,
 }
 
 const getInput = (id: string): HTMLInputElement => {
@@ -163,7 +169,11 @@ void browser.storage.local.get([...KEYS]).then((stored) => {
 
 for (const [key, input] of inputs) {
     input.addEventListener("change", () => {
-        void browser.storage.local.set({ [key]: input.checked }).then(reloadYouTubeTab)
+        const saved = browser.storage.local.set({ [key]: input.checked })
+
+        if (key !== "reloadOnChangeEnabled") {
+            void saved.then(reloadYouTubeTab)
+        }
     })
 }
 

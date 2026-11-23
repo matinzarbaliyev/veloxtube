@@ -70,9 +70,14 @@ During that day, exntension is finally being approved!!!
 ## 23 November 2026
 - **Theme Dropdown** — Replaces the light-theme toggle with a System/Light/Dark dropdown. Now extension can understand which theme to use by default.
     - Suggestion was made by Marick Suryanka
+
 ## Status
 - Sidebar related scripts: ✅
 - Video page related scripts: ✅
 - Home page related scripts: ✅
 - Masthead related scripts: ✅
 - Search related scripts: ✅
+
+## Suggestions
+- Remove reloading of tab - offer toggle to whether enable it or not. Akbar Tangirov & Marick Suryanka
+- Remove that buy with youtube video player where chapters being hidden. Akbar Tangirov 
