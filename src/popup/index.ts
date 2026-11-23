@@ -139,6 +139,7 @@ const inputs = KEYS.map((key) => [key, getInput(key)] as const)
 const themeSelect = getSelect(THEME_KEY)
 const darkQuery = window.matchMedia("(prefers-color-scheme: dark)")
 
+let reloadOnChange = DEFAULTS.reloadOnChangeEnabled
 let currentPreference: ThemePreference = THEME_DEFAULT
 
 const applyTheme = (preference: ThemePreference): void => {
@@ -165,13 +166,20 @@ void browser.storage.local.get([...KEYS]).then((stored) => {
     for (const [key, input] of inputs) {
         input.checked = (stored[key] as boolean | undefined) ?? DEFAULTS[key]
     }
+
+    reloadOnChange =
+        (stored.reloadOnChangeEnabled as boolean | undefined) ?? DEFAULTS.reloadOnChangeEnabled
 })
 
 for (const [key, input] of inputs) {
     input.addEventListener("change", () => {
+        if (key === "reloadOnChangeEnabled") {
+            reloadOnChange = input.checked
+        }
+
         const saved = browser.storage.local.set({ [key]: input.checked })
 
-        if (key !== "reloadOnChangeEnabled") {
+        if (key !== "reloadOnChangeEnabled" && reloadOnChange) {
             void saved.then(reloadYouTubeTab)
         }
     })

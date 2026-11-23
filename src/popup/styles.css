@@ -141,23 +141,18 @@ select:focus-visible {
 }
 
 .info-icon {
-    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex: none;
-    width: 14px;
-    height: 14px;
-    border: 1px solid var(--muted);
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border);
     border-radius: 50%;
-    color: var(--muted);
-    font-size: 9px;
-    line-height: 12px;
-    text-align: center;
-    cursor: help;
-}
-
-.info-icon:hover,
-.info-icon:focus-visible {
-    border-color: var(--fg);
     color: var(--fg);
+    font-size: 11px;
+    cursor: help;
+    position: relative;
 }
 
 .info-icon:focus-visible {
@@ -168,17 +163,18 @@ select:focus-visible {
 .info-icon::after {
     content: attr(data-tip);
     position: absolute;
+    top: 130%;
     right: 0;
-    bottom: calc(100% + 6px);
-    z-index: 1;
-    width: 180px;
+    z-index: 10;
+    width: max-content;
+    max-width: 220px;
     padding: 6px 8px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--bg-input);
-    color: var(--fg);
+    border-radius: 4px;
+    background: var(--fg);
+    color: var(--bg);
     font-size: 11px;
-    line-height: 1.4;
+    line-height: 1.35;
+    white-space: normal;
     text-align: left;
     opacity: 0;
     visibility: hidden;

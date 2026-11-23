@@ -285,20 +285,19 @@ browser.storage.onChanged.addListener((changes, area) => {
         return
     }
 
-    let changed = false
+    if (!KEYS.some((key) => key in changes)) {
+        return
+    }
 
     for (const key of KEYS) {
         const change = changes[key]
 
         if (change) {
             flags = { ...flags, [key]: change.newValue as boolean }
-            changed = true
         }
     }
 
-    if (changed) {
-        schedule()
-    }
+    schedule()
 })
 
 void browser.storage.local.get([...KEYS]).then((stored) => {
