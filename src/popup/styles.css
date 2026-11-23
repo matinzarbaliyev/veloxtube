@@ -27,7 +27,7 @@
 }
 
 body {
-    width: 220px;
+    width: 280px;
     margin: 0;
     padding: 12px 14px 14px;
     background: var(--bg);
@@ -134,10 +134,16 @@ select:focus-visible {
     display: flex;
     align-items: center;
     gap: 6px;
+    padding: 6px 0;
+    position: relative;
 }
 
 .reload-row label {
-    flex: 1;
+    padding: 0;
+}
+
+.reload-row input {
+    margin-left: auto;
 }
 
 .info-icon {
@@ -152,7 +158,6 @@ select:focus-visible {
     color: var(--fg);
     font-size: 11px;
     cursor: help;
-    position: relative;
 }
 
 .info-icon:focus-visible {
@@ -163,7 +168,7 @@ select:focus-visible {
 .info-icon::after {
     content: attr(data-tip);
     position: absolute;
-    top: 130%;
+    top: calc(100% + 4px);
     right: 0;
     z-index: 10;
     width: max-content;
