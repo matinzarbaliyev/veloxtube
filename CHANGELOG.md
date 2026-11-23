@@ -67,6 +67,9 @@ During that day, exntension is finally being approved!!!
 - Removal of Shorts from channel page.
 
 
+## 23 November 2026
+- **Theme Dropdown** — Replaces the light-theme toggle with a System/Light/Dark dropdown. Now extension can understand which theme to use by default.
+    - Suggestion was made by Marick Suryanka
 ## Status
 - Sidebar related scripts: ✅
 - Video page related scripts: ✅
