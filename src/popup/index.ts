@@ -131,14 +131,21 @@ const getSelect = (id: string): HTMLSelectElement => {
 const inputs = KEYS.map((key) => [key, getInput(key)] as const)
 
 const themeSelect = getSelect(THEME_KEY)
+const darkQuery = window.matchMedia("(prefers-color-scheme: dark)")
+
+let currentPreference: ThemePreference = THEME_DEFAULT
 
 const applyTheme = (preference: ThemePreference): void => {
-    const isDark =
-        preference === "dark" ||
-        (preference === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    const isDark = preference === "dark" || (preference === "system" && darkQuery.matches)
 
     document.documentElement.dataset.theme = isDark ? "dark" : "light"
 }
+
+darkQuery.addEventListener("change", () => {
+    if (currentPreference === "system") {
+        applyTheme(currentPreference)
+    }
+})
 
 const reloadYouTubeTab = async (): Promise<void> => {
     const [tab] = await browser.tabs.query({ active: true, currentWindow: true })
@@ -162,13 +169,22 @@ for (const [key, input] of inputs) {
 
 void browser.storage.local.get([THEME_KEY, LEGACY_THEME_KEY]).then((stored) => {
     const saved = stored[THEME_KEY] as ThemePreference | undefined
-    const legacy = stored[LEGACY_THEME_KEY] as boolean | undefined
+    const legacy = stored[LEGACY_THEME_KEY]
     let preference: ThemePreference = saved ?? THEME_DEFAULT
 
-    if (saved === undefined && legacy !== undefined) {
-        preference = legacy ? "light" : "dark"
+    if (saved === undefined) {
+        try {
+            if (typeof legacy === "boolean") {
+                preference = legacy ? "light" : "dark"
+                void browser.storage.local.set({ [THEME_KEY]: preference })
+                void browser.storage.local.remove(LEGACY_THEME_KEY)
+            }
+        } catch (error) {
+            console.error("VeloxTube: theme migration failed", error)
+        }
     }
 
+    currentPreference = preference
     applyTheme(preference)
     themeSelect.value = preference
 })
@@ -176,6 +192,7 @@ void browser.storage.local.get([THEME_KEY, LEGACY_THEME_KEY]).then((stored) => {
 themeSelect.addEventListener("change", () => {
     const preference = themeSelect.value as ThemePreference
 
-    applyTheme(preference)
+    currentPreference = preference
     void browser.storage.local.set({ [THEME_KEY]: preference })
+    applyTheme(preference)
 })
