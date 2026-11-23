@@ -69,7 +69,9 @@ During that day, exntension is finally being approved!!!
 
 ## 23 November 2026
 - **Theme Dropdown** — Replaces the light-theme toggle with a System/Light/Dark dropdown. Now extension can understand which theme to use by default.
-    - Suggestion was made by Marick Suryanka
+    - Suggestion was made by **Marick Suryanka**
+- **Reload On Change Toggle** — New switch controls whether feature changes reload the open YouTube tab; off applies changes live through `storage.onChanged`. Theme changes and the reload toggle itself never reload the tab. The reload switch has a hover/focus "i" tooltip explaining both modes. Features using `.remove()` cannot restore nodes live; they return on the next YouTube navigation.
+    - Suggestion was made by **Akbar Tangirov** & **Marick Suryanka**
 
 ## Status
 - Sidebar related scripts: ✅

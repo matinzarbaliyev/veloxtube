@@ -154,12 +154,17 @@ darkQuery.addEventListener("change", () => {
     }
 })
 
-const reloadYouTubeTab = async (): Promise<void> => {
-    const [tab] = await browser.tabs.query({ active: true, currentWindow: true })
 
-    if (tab?.id !== undefined && tab.url?.startsWith("https://www.youtube.com")) {
-        await browser.tabs.reload(tab.id)
+const reloadTabIfEnabled = (): void => {
+    if (!reloadOnChange) {
+        return
     }
+
+    void browser.tabs.query({ active: true, currentWindow: true }).then(([tab]) => {
+        if (tab?.id !== undefined && tab.url?.startsWith("https://www.youtube.com")) {
+            void browser.tabs.reload(tab.id)
+        }
+    })
 }
 
 void browser.storage.local.get([...KEYS]).then((stored) => {
@@ -180,7 +185,7 @@ for (const [key, input] of inputs) {
         const saved = browser.storage.local.set({ [key]: input.checked })
 
         if (key !== "reloadOnChangeEnabled" && reloadOnChange) {
-            void saved.then(reloadYouTubeTab)
+            void saved.then(reloadTabIfEnabled)
         }
     })
 }
