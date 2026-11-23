@@ -1,3 +1,7 @@
+document.documentElement.dataset.theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light"
+
 const KEYS = [
 
     // ===== HOME PAGE ===== //
@@ -49,8 +53,11 @@ const KEYS = [
 type Key = (typeof KEYS)[number]
 
 
-const THEME_KEY = "lightThemeEnabled" as const
-const THEME_DEFAULT = false // dark by default
+const THEME_KEY = "themePreference" as const
+const LEGACY_THEME_KEY = "lightThemeEnabled" as const
+const THEME_DEFAULT = "system" as const
+
+type ThemePreference = "system" | "light" | "dark"
 
 
 const DEFAULTS: Record<Key, boolean> = {
@@ -111,12 +118,26 @@ const getInput = (id: string): HTMLInputElement => {
     return input
 }
 
+const getSelect = (id: string): HTMLSelectElement => {
+    const select = document.getElementById(id)
+
+    if (!(select instanceof HTMLSelectElement)) {
+        throw new Error(`Missing popup select: ${id}`)
+    }
+
+    return select
+}
+
 const inputs = KEYS.map((key) => [key, getInput(key)] as const)
 
-const themeInput = getInput(THEME_KEY)
+const themeSelect = getSelect(THEME_KEY)
 
-const applyTheme = (light: boolean): void => {
-    document.documentElement.dataset.theme = light ? "light" : "dark"
+const applyTheme = (preference: ThemePreference): void => {
+    const isDark =
+        preference === "dark" ||
+        (preference === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+
+    document.documentElement.dataset.theme = isDark ? "dark" : "light"
 }
 
 const reloadYouTubeTab = async (): Promise<void> => {
@@ -139,14 +160,22 @@ for (const [key, input] of inputs) {
     })
 }
 
-void browser.storage.local.get("lightThemeEnabled").then((stored) => {
-    const light = (stored[THEME_KEY] as boolean | undefined) ?? THEME_DEFAULT;
+void browser.storage.local.get([THEME_KEY, LEGACY_THEME_KEY]).then((stored) => {
+    const saved = stored[THEME_KEY] as ThemePreference | undefined
+    const legacy = stored[LEGACY_THEME_KEY] as boolean | undefined
+    let preference: ThemePreference = saved ?? THEME_DEFAULT
 
-    themeInput.checked = light
-    applyTheme(light)
+    if (saved === undefined && legacy !== undefined) {
+        preference = legacy ? "light" : "dark"
+    }
+
+    applyTheme(preference)
+    themeSelect.value = preference
 })
 
-themeInput.addEventListener("change", () => {
-    applyTheme(themeInput.checked)
-    void browser.storage.local.set({ [THEME_KEY]: themeInput.checked })
+themeSelect.addEventListener("change", () => {
+    const preference = themeSelect.value as ThemePreference
+
+    applyTheme(preference)
+    void browser.storage.local.set({ [THEME_KEY]: preference })
 })
