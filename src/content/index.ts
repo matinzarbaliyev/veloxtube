@@ -46,6 +46,7 @@ import { initSubcriptionsMenuHider } from "./sidebar/sidebarSubscriptons"
 
 
 import { initInFeedAds } from "./feeds/inFeedAds"
+import { clearAllRemovals } from "./shared/removalRegistry"
 
 const HOME_CLASS = "veloxtube-home"
 const SEARCH_CLASS = "veloxtube-search"
@@ -277,8 +278,13 @@ const schedule = (): void => {
     queueMicrotask(apply)
 }
 
-document.addEventListener("yt-navigate-finish", schedule, { passive: true })
-document.addEventListener("yt-page-data-updated", schedule, { passive: true })
+const scheduleNavigation = (): void => {
+    clearAllRemovals()
+    schedule()
+}
+
+document.addEventListener("yt-navigate-finish", scheduleNavigation, { passive: true })
+document.addEventListener("yt-page-data-updated", scheduleNavigation, { passive: true })
 
 browser.storage.onChanged.addListener((changes, area) => {
     if (area !== "local") {

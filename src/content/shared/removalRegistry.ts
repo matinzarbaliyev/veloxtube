@@ -1,44 +1,41 @@
 const registry = new Map<string, Array<{ placeholder: Comment; node: Element }>>()
 
 export const rememberRemoval = (featureKey: string, node: Element): void => {
-    const parent = node.parentNode
-
-    if (!parent) {
+    if (!node.isConnected) {
         return
     }
 
     const placeholder = document.createComment("veloxtube")
-    parent.replaceChild(placeholder, node)
+    node.replaceWith(placeholder)
 
-    const entries = registry.get(featureKey)
+    let bucket = registry.get(featureKey)
 
-    if (entries) {
-        entries.push({ placeholder, node })
-    } else {
-        registry.set(featureKey, [{ placeholder, node }])
+    if (!bucket) {
+        bucket = []
+        registry.set(featureKey, bucket)
     }
+
+    bucket.push({ placeholder, node })
 }
 
 export const restoreRemovals = (featureKey: string): void => {
-    const entries = registry.get(featureKey)
+    const bucket = registry.get(featureKey)
 
-    if (!entries) {
+    if (!bucket) {
         return
     }
 
-    for (const { placeholder, node } of entries) {
-        placeholder.parentNode?.replaceChild(node, placeholder)
+    for (const entry of bucket) {
+        if (!entry.placeholder.parentNode) {
+            continue
+        }
+
+        entry.placeholder.replaceWith(entry.node)
     }
 
     registry.delete(featureKey)
 }
 
 export const clearAllRemovals = (): void => {
-    for (const entries of registry.values()) {
-        for (const { placeholder } of entries) {
-            placeholder.remove()
-        }
-    }
-
     registry.clear()
 }
