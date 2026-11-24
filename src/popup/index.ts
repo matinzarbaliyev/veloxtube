@@ -17,6 +17,7 @@ const KEYS = [
     // ===== SEARCH PAGE ===== //
     "searchShortsEnabled",
     "searchTopicBarEnabled",
+    "searchChannelsEnabled",
     // ====================== //
 
 
@@ -80,6 +81,7 @@ const DEFAULTS: Record<Key, boolean> = {
     // =========== SEARCH PAGE =========== //
     searchShortsEnabled: false,
     searchTopicBarEnabled: false,
+    searchChannelsEnabled: false,
     // ================================== //   
 
 

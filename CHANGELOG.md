@@ -78,6 +78,9 @@ During that day, exntension is finally being approved!!!
     - Suggestion was made by **Marick Suryanka**
  
 
+## 24 November 2026
+- **Removal of Channels from Search Feed**. Now users can hide channels appearin from the search feed this making search much easier and less distractive.
+
 ## Status
 - Sidebar related scripts: ✅
 - Video page related scripts: ✅
@@ -87,3 +90,4 @@ During that day, exntension is finally being approved!!!
 
 ## Suggestions
 - Remove that buy with youtube video player where chapters being hidden. Akbar Tangirov 
+- Shorts can appear on video page.

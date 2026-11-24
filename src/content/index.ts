@@ -11,6 +11,7 @@ import { initHomeTopicBarHider } from "./home/homeTopicBar"
 // ========================= SEARCH PAGE ======================== //
 import { initSearchShortsHider } from "./search/searchShorts"
 import { initSearchTopicBarHider } from "./search/searchTopicBar"
+import { initSearchChannelsHider } from "./search/searchChannels"
 // ============================================================== //
 
 import { initSidebarShorts } from "./sidebar/sidebarShorts"
@@ -66,6 +67,7 @@ const KEYS = [
     // ===== SEARCH PAGE ===== //
     "searchShortsEnabled",
     "searchTopicBarEnabled",
+    "searchChannelsEnabled",
     // ====================== //
 
 
@@ -119,6 +121,7 @@ type Flags = {
     // =========== SEARCH PAGE =========== //
     searchShortsEnabled: boolean
     searchTopicBarEnabled: boolean
+    searchChannelsEnabled: boolean
     // ================================== //
 
     sidebarShortsEnabled: boolean
@@ -166,6 +169,7 @@ const DEFAULTS: Flags = {
     // =========== SEARCH PAGE =========== //
     searchShortsEnabled: false,
     searchTopicBarEnabled: false,
+    searchChannelsEnabled: false,
     // ================================== //
 
 
@@ -246,6 +250,7 @@ const apply = (): void => {
     // ======================== SEARCH PAGE ======================== //
     runFeature("searchShortsEnabled", initSearchShortsHider, flags.searchShortsEnabled)
     runFeature("searchTopicBarEnabled", initSearchTopicBarHider, flags.searchTopicBarEnabled)
+    runFeature("searchChannelsEnabled", initSearchChannelsHider, flags.searchChannelsEnabled)
     // ============================================================= //
 
     // =========== SIDEBAR MENU =========== //
