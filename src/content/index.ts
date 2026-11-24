@@ -12,6 +12,7 @@ import { initHomeTopicBarHider } from "./home/homeTopicBar"
 import { initSearchShortsHider } from "./search/searchShorts"
 import { initSearchTopicBarHider } from "./search/searchTopicBar"
 import { initSearchChannelsHider } from "./search/searchChannels"
+import { initSearchAIGeneratedSummariesHider } from "./search/searchAIGeneratedSummaryOfVideo"
 // ============================================================== //
 
 import { initSidebarShorts } from "./sidebar/sidebarShorts"
@@ -68,6 +69,7 @@ const KEYS = [
     "searchShortsEnabled",
     "searchTopicBarEnabled",
     "searchChannelsEnabled",
+    "searchAIGeneratedSummariesEnabled",
     // ====================== //
 
 
@@ -122,6 +124,7 @@ type Flags = {
     searchShortsEnabled: boolean
     searchTopicBarEnabled: boolean
     searchChannelsEnabled: boolean
+    searchAIGeneratedSummariesEnabled: boolean
     // ================================== //
 
     sidebarShortsEnabled: boolean
@@ -170,6 +173,7 @@ const DEFAULTS: Flags = {
     searchShortsEnabled: false,
     searchTopicBarEnabled: false,
     searchChannelsEnabled: false,
+    searchAIGeneratedSummariesEnabled: false,
     // ================================== //
 
 
@@ -251,6 +255,12 @@ const apply = (): void => {
     runFeature("searchShortsEnabled", initSearchShortsHider, flags.searchShortsEnabled)
     runFeature("searchTopicBarEnabled", initSearchTopicBarHider, flags.searchTopicBarEnabled)
     runFeature("searchChannelsEnabled", initSearchChannelsHider, flags.searchChannelsEnabled)
+
+    runFeature(
+        "searchAIGeneratedSummariesEnabled",
+        initSearchAIGeneratedSummariesHider,
+        flags.searchAIGeneratedSummariesEnabled
+    )
     // ============================================================= //
 
     // =========== SIDEBAR MENU =========== //

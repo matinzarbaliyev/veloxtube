@@ -79,7 +79,9 @@ During that day, exntension is finally being approved!!!
  
 
 ## 24 November 2026
-- **Removal of Channels from Search Feed**. Now users can hide channels appearin from the search feed this making search much easier and less distractive.
+- **Removal of Channels from Search Feed**. Now users can hide channels appearing from the search feed this making search much easier and less distractive.
+
+- **Removal of AI Video Summaries**. Now users can hide AI Video Summaries of the video from search feed.
 
 ## Status
 - Sidebar related scripts: ✅

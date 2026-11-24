@@ -18,6 +18,7 @@ const KEYS = [
     "searchShortsEnabled",
     "searchTopicBarEnabled",
     "searchChannelsEnabled",
+    "searchAIGeneratedSummariesEnabled",
     // ====================== //
 
 
@@ -82,6 +83,7 @@ const DEFAULTS: Record<Key, boolean> = {
     searchShortsEnabled: false,
     searchTopicBarEnabled: false,
     searchChannelsEnabled: false,
+    searchAIGeneratedSummariesEnabled: false,
     // ================================== //   
 
 

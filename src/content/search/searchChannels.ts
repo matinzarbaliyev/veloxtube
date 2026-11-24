@@ -23,8 +23,8 @@ const removeChannelsFromSearchFeed = (): void => {
 
     if (!observedRoot) return;
 
-    for (const comments of observedRoot.querySelectorAll(SELECTOR)) {
-        rememberRemoval("videoShowCommentsEnabled", comments);
+    for (const channels of observedRoot.querySelectorAll(SELECTOR)) {
+        rememberRemoval("searchChannelsEnabled", channels);
     }
 };
 
