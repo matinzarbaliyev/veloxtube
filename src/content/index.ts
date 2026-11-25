@@ -1,4 +1,3 @@
-
 // ======================= HOME PAGE ====================== //
 import { initHomeShorts } from "./home/homeShorts"
 import { initYoutubeFeaturedHider } from "./home/youtubeFeatured"
@@ -39,152 +38,47 @@ import { initChannelFeaturedContentHider } from "./channel/channelFeaturedConten
 import { initChannelShortsHider } from "./channel/channelShorts"
 // =============================================================== //
 
-
-// ======================= SIBDEBAR MENU ========================= //
+// ======================= SIDEBAR MENU ========================= //
 import { initMoreFromYouTube } from "./sidebar/moreFromYouTube"
 import { initExploreMenu } from "./sidebar/exploreMenu"
 import { initSubcriptionsMenuHider } from "./sidebar/sidebarSubscriptons"
 // ============================================================== //
 
-
 import { initInFeedAds } from "./feeds/inFeedAds"
 import { clearAllRemovals, restoreRemovals } from "./shared/removalRegistry"
 
-const HOME_CLASS = "veloxtube-home"
-const SEARCH_CLASS = "veloxtube-search"
-const SIDEBAR_CLASS = "veloxtube-sidebar"
-const KEYS = [
+// ===================== SINGLE SOURCE OF TRUTH ===================== //
+const DEFAULTS = Object.freeze({
+    // sidebar extras
+    inFeedAdsEnabled: false,
+    moreFromYouTubeEnabled: false,
+    exploreMenuEnabled: false,
 
-    // ===== HOME PAGE ===== //
-    "homeShortsEnabled",
-    "homeYoutubeFeaturedEnabled",
-    "homeHomeFeedEnabled",
-    "homeSubscriptionsButtonEnabled",
-    "homeYoutubePlayablesEnabled",
-    "homeTopicBarEnabled",
-    // ====================== //
-
-
-    // ===== SEARCH PAGE ===== //
-    "searchShortsEnabled",
-    "searchTopicBarEnabled",
-    "searchChannelsEnabled",
-    "searchAIGeneratedSummariesEnabled",
-    // ====================== //
-
-
-    "sidebarShortsEnabled",
-    "sidebarFooterEnabled",
-    "topLogoEnabled",
-    "notificationBellEnabled",
-    "micButtonEnabled",
-
-    // ===== VIDEO PAGE ===== //
-    "videoJoinButtonEnabled",
-    "videoThanksButtonEnabled",
-    "videoShareButtonEnabled",
-    "videoShowRelatedVideosEnabled",
-    "videoShowCommentsEnabled",
-    "videoShowDescriptionEnabled",
-    "videoShowLiveChatEnabled",
-    "videoMoreActionsEnabled",
-    // ====================== //
-
-    // ====== CHANNEL PAGE ====== //
-    "channelWallpaperEnabled",
-    "channelJoinButtonEnabled",
-    "channelFeaturedContentEnabled",
-    "channelShortsEnabled",
-    // ========================== //
-
-
-    // ===== SIDEBAR MENU ===== //
-    "moreFromYouTubeEnabled",
-    "exploreMenuEnabled",
-    "sidebarSubscriptionsMenuEnabled",
-    // ===== SIDEBAR MENU ===== //
-
-    "inFeedAdsEnabled",
-
-
-] as const
-
-type Flags = {
-
-    // =========== HOME PAGE =========== //
-    homeShortsEnabled: boolean
-    homeYoutubeFeaturedEnabled: boolean
-    homeHomeFeedEnabled: boolean
-    homeSubscriptionsButtonEnabled: boolean
-    homeYoutubePlayablesEnabled: boolean
-    homeTopicBarEnabled: boolean
-    // ================================== //
-
-    // =========== SEARCH PAGE =========== //
-    searchShortsEnabled: boolean
-    searchTopicBarEnabled: boolean
-    searchChannelsEnabled: boolean
-    searchAIGeneratedSummariesEnabled: boolean
-    // ================================== //
-
-    sidebarShortsEnabled: boolean
-    sidebarFooterEnabled: boolean
-    topLogoEnabled: boolean
-    notificationBellEnabled: boolean
-    micButtonEnabled: boolean
-
-    // =========== VIDEO PAGE =========== //
-    videoJoinButtonEnabled: boolean
-    videoThanksButtonEnabled: boolean
-    videoShareButtonEnabled: boolean
-    videoShowRelatedVideosEnabled: boolean
-    videoShowCommentsEnabled: boolean
-    videoShowDescriptionEnabled: boolean
-    videoShowLiveChatEnabled: boolean
-    videoMoreActionsEnabled: boolean
-    // ================================== //
-
-    channelJoinButtonEnabled: boolean
-    channelWallpaperEnabled: boolean,
-    channelFeaturedContentEnabled: boolean,
-    channelShortsEnabled: boolean,
-
-    // =========== SIDEBAR MENU =========== //
-    moreFromYouTubeEnabled: boolean
-    exploreMenuEnabled: boolean
-    sidebarSubscriptionsMenuEnabled: boolean
-    // ================================== //
-
-    inFeedAdsEnabled: boolean
-}
-
-const DEFAULTS: Flags = {
-
-    // =========== HOME PAGE =========== //
+    // home
     homeShortsEnabled: false,
     homeYoutubeFeaturedEnabled: false,
     homeHomeFeedEnabled: false,
     homeSubscriptionsButtonEnabled: false,
     homeYoutubePlayablesEnabled: false,
     homeTopicBarEnabled: false,
-    // ================================== //
 
-    // =========== SEARCH PAGE =========== //
+    // search
     searchShortsEnabled: false,
     searchTopicBarEnabled: false,
     searchChannelsEnabled: false,
     searchAIGeneratedSummariesEnabled: false,
-    // ================================== //
 
-
-
+    // sidebar
     sidebarShortsEnabled: false,
     sidebarFooterEnabled: false,
+    sidebarSubscriptionsMenuEnabled: false,
+
+    // masthead
     topLogoEnabled: false,
     notificationBellEnabled: false,
     micButtonEnabled: false,
 
-    // =========== VIDEO PAGE =========== //
+    // video
     videoJoinButtonEnabled: false,
     videoThanksButtonEnabled: false,
     videoShareButtonEnabled: false,
@@ -193,143 +87,184 @@ const DEFAULTS: Flags = {
     videoShowDescriptionEnabled: false,
     videoShowLiveChatEnabled: false,
     videoMoreActionsEnabled: false,
-    // ================================== //
 
+    // channel
     channelJoinButtonEnabled: false,
     channelWallpaperEnabled: false,
     channelFeaturedContentEnabled: false,
     channelShortsEnabled: false,
+} as const satisfies Record<string, boolean>)
 
-    // =========== SIDEBAR MENU =========== //
-    moreFromYouTubeEnabled: false,
-    exploreMenuEnabled: false,
-    sidebarSubscriptionsMenuEnabled: false,
-    // ================================== //
+type FlagKey = keyof typeof DEFAULTS
+type Flags = Record<FlagKey, boolean>
 
+const KEYS = Object.keys(DEFAULTS) as FlagKey[]
 
+const FEATURES: Record<FlagKey, (enabled: boolean) => void> = {
+    inFeedAdsEnabled: initInFeedAds,
+    moreFromYouTubeEnabled: initMoreFromYouTube,
+    exploreMenuEnabled: initExploreMenu,
 
-    inFeedAdsEnabled: false,
+    homeShortsEnabled: initHomeShorts,
+    homeYoutubeFeaturedEnabled: initYoutubeFeaturedHider,
+    homeHomeFeedEnabled: initHomeFeedHider,
+    homeSubscriptionsButtonEnabled: initSubcriptionsButtonHider,
+    homeYoutubePlayablesEnabled: initHomeYoutubePlayablesHider,
+    homeTopicBarEnabled: initHomeTopicBarHider,
+
+    searchShortsEnabled: initSearchShortsHider,
+    searchTopicBarEnabled: initSearchTopicBarHider,
+    searchChannelsEnabled: initSearchChannelsHider,
+    searchAIGeneratedSummariesEnabled: initSearchAIGeneratedSummariesHider,
+
+    sidebarShortsEnabled: initSidebarShorts,
+    sidebarFooterEnabled: initSidebarFooter,
+    sidebarSubscriptionsMenuEnabled: initSubcriptionsMenuHider,
+
+    topLogoEnabled: initTopLogo,
+    notificationBellEnabled: initNotificationBell,
+    micButtonEnabled: initMicButton,
+
+    videoJoinButtonEnabled: initVideoJoinButtonHider,
+    videoThanksButtonEnabled: initVideoThanksButton,
+    videoShareButtonEnabled: initVideoShareButtonHider,
+    videoShowRelatedVideosEnabled: initRelatedVideosHider,
+    videoShowCommentsEnabled: initVideoCommentsHider,
+    videoShowDescriptionEnabled: initvideoDescriptionHider,
+    videoShowLiveChatEnabled: initLiveChatHider,
+    videoMoreActionsEnabled: initVideoMoreActionsHiders,
+
+    channelJoinButtonEnabled: initChannelJoinButton,
+    channelWallpaperEnabled: initChannelWallpaperHider,
+    channelFeaturedContentEnabled: initChannelFeaturedContentHider,
+    channelShortsEnabled: initChannelShortsHider,
 }
 
-let flags: Flags = DEFAULTS
+const CLASS_TOGGLES: ReadonlyArray<readonly [FlagKey, string]> = [
+    ["homeShortsEnabled", "veloxtube-home"],
+    ["searchShortsEnabled", "veloxtube-search"],
+    ["sidebarShortsEnabled", "veloxtube-sidebar"],
+]
+
+// ============================= STATE ============================= //
+let flags: Flags = { ...DEFAULTS }
+let applied: Flags | null = null
 let scheduled = false
+let active = false
+let teardown: (() => void) | null = null
 
-// One broken feature must never stop the rest of the features from applying.
-const runFeature = (
-    key: keyof Flags,
-    init: (enabled: boolean) => void,
-    enabled: boolean,
-): void => {
+// ============================= APPLY ============================= //
+const runFeature = (key: FlagKey): void => {
+    const enabled = flags[key]
     try {
-        if (!enabled) {
-            restoreRemovals(key)
-        }
-
-        init(enabled)
+        if (!enabled) restoreRemovals(key)
+        FEATURES[key](enabled)
     } catch (error) {
-        const errorMessage: string = `VeloxTube: feature failed. Feature initializer name: ${init.name}`
-        console.error(errorMessage, error)
+        console.error(`VeloxTube: feature failed: ${FEATURES[key].name}`, error)
     }
 }
 
 const apply = (): void => {
     scheduled = false
-    runFeature("inFeedAdsEnabled", initInFeedAds, flags.inFeedAdsEnabled)
-    runFeature("moreFromYouTubeEnabled", initMoreFromYouTube, flags.moreFromYouTubeEnabled)
-    runFeature("exploreMenuEnabled", initExploreMenu, flags.exploreMenuEnabled)
-    document.documentElement.classList.toggle(HOME_CLASS, flags.homeShortsEnabled)
-    document.documentElement.classList.toggle(SEARCH_CLASS, flags.searchShortsEnabled)
-    document.documentElement.classList.toggle(SIDEBAR_CLASS, flags.sidebarShortsEnabled)
+    if (!active) return
 
-    // =============================== HOME PAGE =============================== //
-    runFeature("homeShortsEnabled", initHomeShorts, flags.homeShortsEnabled)
-    runFeature("homeYoutubeFeaturedEnabled", initYoutubeFeaturedHider, flags.homeYoutubeFeaturedEnabled)
-    runFeature("homeHomeFeedEnabled", initHomeFeedHider, flags.homeHomeFeedEnabled)
-    runFeature("homeSubscriptionsButtonEnabled", initSubcriptionsButtonHider, flags.homeSubscriptionsButtonEnabled)
-    runFeature("homeYoutubePlayablesEnabled", initHomeYoutubePlayablesHider, flags.homeYoutubePlayablesEnabled)
-    runFeature("homeTopicBarEnabled", initHomeTopicBarHider, flags.homeTopicBarEnabled)
-    // ========================================================================= //
+    const full = applied === null
+    const prev = applied
 
+    for (let i = 0; i < CLASS_TOGGLES.length; i++) {
+        const [key, cls] = CLASS_TOGGLES[i]!
+        if (full || prev![key] !== flags[key]) {
+            document.documentElement.classList.toggle(cls, flags[key])
+        }
+    }
 
-    // ======================== SEARCH PAGE ======================== //
-    runFeature("searchShortsEnabled", initSearchShortsHider, flags.searchShortsEnabled)
-    runFeature("searchTopicBarEnabled", initSearchTopicBarHider, flags.searchTopicBarEnabled)
-    runFeature("searchChannelsEnabled", initSearchChannelsHider, flags.searchChannelsEnabled)
+    if (full) {
+        for (const key of KEYS) runFeature(key)
+    } else {
+        for (const key of KEYS) {
+            if (prev![key] !== flags[key]) runFeature(key)
+        }
+    }
 
-    runFeature(
-        "searchAIGeneratedSummariesEnabled",
-        initSearchAIGeneratedSummariesHider,
-        flags.searchAIGeneratedSummariesEnabled
-    )
-    // ============================================================= //
-
-    // =========== SIDEBAR MENU =========== //
-    runFeature("sidebarShortsEnabled", initSidebarShorts, flags.sidebarShortsEnabled)
-    runFeature("sidebarFooterEnabled", initSidebarFooter, flags.sidebarFooterEnabled)
-    runFeature("sidebarSubscriptionsMenuEnabled", initSubcriptionsMenuHider, flags.sidebarSubscriptionsMenuEnabled)
-    // ================================== //
-
-
-    runFeature("topLogoEnabled", initTopLogo, flags.topLogoEnabled)
-    runFeature("notificationBellEnabled", initNotificationBell, flags.notificationBellEnabled)
-    runFeature("micButtonEnabled", initMicButton, flags.micButtonEnabled)
-
-    // Video Page
-    runFeature("videoJoinButtonEnabled", initVideoJoinButtonHider, flags.videoJoinButtonEnabled)
-    runFeature("videoThanksButtonEnabled", initVideoThanksButton, flags.videoThanksButtonEnabled)
-    runFeature("videoShareButtonEnabled", initVideoShareButtonHider, flags.videoShareButtonEnabled)
-    runFeature("videoShowRelatedVideosEnabled", initRelatedVideosHider, flags.videoShowRelatedVideosEnabled)
-    runFeature("videoShowCommentsEnabled", initVideoCommentsHider, flags.videoShowCommentsEnabled)
-    runFeature("videoShowDescriptionEnabled", initvideoDescriptionHider, flags.videoShowDescriptionEnabled)
-    runFeature("videoShowLiveChatEnabled", initLiveChatHider, flags.videoShowLiveChatEnabled)
-    runFeature("videoMoreActionsEnabled", initVideoMoreActionsHiders, flags.videoMoreActionsEnabled)
-    // ==================================================== //
-
-
-    runFeature("channelJoinButtonEnabled", initChannelJoinButton, flags.channelJoinButtonEnabled)
-    runFeature("channelWallpaperEnabled", initChannelWallpaperHider, flags.channelWallpaperEnabled)
-    runFeature("channelFeaturedContentEnabled", initChannelFeaturedContentHider, flags.channelFeaturedContentEnabled)
-    runFeature("channelShortsEnabled", initChannelShortsHider, flags.channelShortsEnabled)
+    applied = flags
 }
 
 const schedule = (): void => {
-    if (scheduled) {
-        return
-    }
-
+    if (scheduled || !active) return
     scheduled = true
     queueMicrotask(apply)
 }
 
-const scheduleNavigation = (): void => {
+// ============================= EVENTS ============================= //
+const onNavigation = (): void => {
     clearAllRemovals()
+    applied = null
     schedule()
 }
 
-document.addEventListener("yt-navigate-finish", scheduleNavigation, { passive: true })
-document.addEventListener("yt-page-data-updated", scheduleNavigation, { passive: true })
+const onStorageChanged: Parameters<typeof browser.storage.onChanged.addListener>[0] = (
+    changes,
+    area,
+) => {
+    if (area !== "local") return
 
-browser.storage.onChanged.addListener((changes, area) => {
-    if (area !== "local") {
-        return
-    }
-
-    if (!KEYS.some((key) => key in changes)) {
-        return
-    }
-
+    let dirty = false
     for (const key of KEYS) {
         const change = changes[key]
+        if (!change) continue
 
-        if (change) {
-            flags = { ...flags, [key]: change.newValue as boolean }
+        const next = change.newValue ?? DEFAULTS[key]
+        if (next !== flags[key]) {
+            flags = { ...flags, [key]: next as boolean }
+            dirty = true
         }
     }
 
-    schedule()
-})
+    if (dirty) schedule()
+}
 
-void browser.storage.local.get([...KEYS]).then((stored) => {
-    flags = { ...DEFAULTS, ...(stored as Partial<Flags>) }
-    schedule()
-})
+// ============================= LIFECYCLE ============================= //
+const mount = (): (() => void) => {
+    if (teardown) return teardown
+
+    active = true
+
+    document.addEventListener("yt-navigate-finish", onNavigation, { passive: true })
+    document.addEventListener("yt-page-data-updated", onNavigation, { passive: true })
+    browser.storage.onChanged.addListener(onStorageChanged)
+
+    browser.storage.local
+        .get(KEYS)
+        .then((stored) => {
+            if (!active) return
+            flags = { ...DEFAULTS, ...(stored as Partial<Flags>) }
+            applied = null
+            schedule()
+        })
+        .catch((error) => {
+            console.error("VeloxTube: failed to read storage", error)
+            if (!active) return
+            applied = null
+            schedule()
+        })
+
+    teardown = (): void => {
+        document.removeEventListener("yt-navigate-finish", onNavigation)
+        document.removeEventListener("yt-page-data-updated", onNavigation)
+        browser.storage.onChanged.removeListener(onStorageChanged)
+
+        flags = { ...DEFAULTS }
+        applied = null
+        apply()
+
+        clearAllRemovals()
+        active = false
+        teardown = null
+    }
+
+    return teardown
+}
+
+mount()
+
+export default mount

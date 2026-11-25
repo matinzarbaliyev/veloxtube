@@ -3,6 +3,7 @@
   "name": "VeloxTube",
   "version": "0.0.9.2",
   "description": "Minimal YouTube cleanifier for Firefox.",
+  "chromium:minimum_chrome_version": "148",
   "browser_specific_settings": {
     "gecko": {
       "id": "veloxtube@veloxtube.dev",
@@ -20,11 +21,22 @@
     "48": "icons/icon.svg",
     "128": "icons/icon.svg"
   },
+  "chromium:icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
   "action": {
     "default_title": "VeloxTube",
     "default_popup": "popup/index.html",
     "default_icon": "icons/icon.svg",
     "default_area": "navbar"
+  },
+  "chromium:action": {
+    "default_title": "VeloxTube",
+    "default_popup": "popup/index.html",
+    "default_icon": "icons/icon-32.png"
   },
   "content_scripts": [
     {
@@ -36,5 +48,8 @@
   ],
   "background": {
     "scripts": ["background/index.js"]
+  },
+  "chromium:background": {
+    "service_worker": "background/index.js"
   }
 }

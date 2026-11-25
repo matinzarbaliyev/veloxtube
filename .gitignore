@@ -7,3 +7,6 @@ web-ext-artifacts/
 # MINE
 test.ts
 example.html
+
+# Extension.js local session state
+.extension-js

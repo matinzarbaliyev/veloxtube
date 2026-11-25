@@ -12,13 +12,16 @@
     "watch": "node scripts/build.mjs --watch",
     "lint": "eslint . && tsc --noEmit && web-ext lint --source-dir=dist",
     "format": "prettier --write .",
-    "dev": "node scripts/build.mjs && node scripts/dev.mjs"
+    "dev": "node scripts/build.mjs && node scripts/dev.mjs",
+    "dev:chrome": "extension dev --browser=chrome",
+    "build:chrome": "extension build --browser=chrome --zip"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
     "@types/webextension-polyfill": "^0.12.6",
     "esbuild": "^0.28.2",
     "eslint": "^9.39.5",
+    "extension": "^4.4.0",
     "prettier": "^3.9.10",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2",
