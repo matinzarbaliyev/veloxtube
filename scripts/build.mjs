@@ -1,5 +1,5 @@
 import { build, context } from "esbuild";
-import { copyFile, mkdir, readdir, rm } from "node:fs/promises";
+import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 
 const watch = process.argv.includes("--watch");
@@ -17,8 +17,16 @@ if (!watch) {
   );
 }
 
+const manifest = JSON.parse(await readFile("src/manifest.json", "utf8"));
+
+for (const key of Object.keys(manifest)) {
+  if (key.startsWith("chromium:")) {
+    delete manifest[key];
+  }
+}
+
 await mkdir("dist", { recursive: true });
-await copyFile("src/manifest.json", "dist/manifest.json");
+await writeFile("dist/manifest.json", `${JSON.stringify(manifest, null, 2)}\n`);
 
 const assetFiles = (await readdir("src", { recursive: true })).filter(
   (file) => file.endsWith(".html") || file.endsWith(".svg"),
