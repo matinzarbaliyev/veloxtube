@@ -46,6 +46,14 @@
       "run_at": "document_start"
     }
   ],
+  "chromium:content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content/mount.ts"],
+      "css": ["styles/inject.css"],
+      "run_at": "document_start"
+    }
+  ],
   "background": {
     "scripts": ["background/index.js"]
   },
