@@ -1,6 +1,6 @@
 # VeloxTube
 
-VeloxTube is a minimal Firefox extension that hides selected interface elements on YouTube. Every change is controlled by a toggle in the toolbar popup. It is not an ad blocker and does not block video ads.
+VeloxTube is a minimal extension for Firefox and Chromium-based browsers (Chrome, Edge, Brave) that hides selected interface elements on YouTube. Every change is controlled by a toggle in the toolbar popup. It is not an ad blocker and does not block video ads.
 
 ## Features
 
@@ -15,9 +15,9 @@ VeloxTube is a minimal Firefox extension that hides selected interface elements 
 
 VeloxTube does not collect, store, sell, or transmit personal data. There is no telemetry, analytics, tracking, or remote logging, and the extension makes no network requests of its own.
 
-All preferences are boolean on/off flags saved with `browser.storage.local`. They stay in the local Firefox profile and are never sent anywhere. The extension reads and modifies the DOM only on YouTube pages. The popup reads the active tab's URL solely to decide whether to reload a YouTube tab after a setting changes; that value is not stored or transmitted.
+All preferences are boolean on/off flags saved with `browser.storage.local`. They stay in the local browser profile and are never sent anywhere. The extension reads and modifies the DOM only on YouTube pages. The popup reads the active tab's URL solely to decide whether to reload a YouTube tab after a setting changes; that value is not stored or transmitted.
 
-The add-on's manifest declares `data_collection_permissions.required: ["none"]`, matching the behavior above.
+The extension's manifest declares `data_collection_permissions.required: ["none"]`, matching the behavior above.
 
 ## Permissions
 
@@ -28,7 +28,9 @@ No other permissions are requested.
 
 ## Installation
 
-Load the built extension temporarily:
+Load the built extension temporarily.
+
+### Firefox
 
 1. `npm ci`
 2. `npm run build`
@@ -36,17 +38,17 @@ Load the built extension temporarily:
 
 `npm run dev` starts a watch build and launches Firefox with the extension loaded.
 
-### Chrome
+### Chrome and Chromium
 
 1. `npm ci`
 2. `npm run build:chrome`
 3. Open `chrome://extensions`, enable Developer mode, choose "Load unpacked", and select `dist/chrome`.
 
-Do not load `dist/` in Chrome; it is the Firefox build and keeps Firefox-only manifest keys. `npm run build:all` builds both targets, and `npm run dev:chrome` starts the Chrome dev server.
+Do not load `dist/` in Chromium-based browsers; it is the Firefox build and keeps Firefox-only manifest keys. `npm run build:all` builds both targets, and `npm run dev:chrome` starts the Chrome dev server.
 
 ## Building from source
 
-The release archive contains bundled and minified JavaScript, so reviewers have to rebuild it from this repository to read the source.
+The release archives contain bundled and minified JavaScript, so reviewers have to rebuild them from this repository to read the source.
 
 The build was made on macOS 15.7.3 (arm64) with Node.js 26.13.0 and npm 11.20.0. Mozilla's default review environment is Ubuntu 24.04 (arm64) with Node.js 24.14.0 and npm 11.9.0. The build script uses only Node's standard library and esbuild, with no platform-specific steps, so the same commands work there. Node.js 24 or newer is required.
 
@@ -55,13 +57,13 @@ npm ci
 npm run build
 ```
 
-`npm ci` installs the exact dependency versions from `package-lock.json`, which has to stay in the source archive. `npm run build` clears `dist/`, writes the extension into it, packages that directory as `web-ext-artifacts/veloxtube-<version>.zip`, and copies the archive to `released/`.
+`npm ci` installs the exact dependency versions from `package-lock.json`, which has to stay in the source archive. `npm run build` clears `dist/` except `dist/chrome/`, writes the Firefox extension into it, packages that directory as `web-ext-artifacts/veloxtube-<version>.zip`, and copies the archive to `released/`.
 
-To check a build, unpack the submitted zip and diff its files against `dist/`. Don't diff the zip files themselves: `web-ext` records timestamps, so two builds of identical code still produce different archives. The JavaScript output depends on the pinned esbuild version, not on the operating system or the Node.js version.
+To check a build, unpack the submitted archive and diff its files against the matching build directory: `dist/` for Firefox and `dist/chrome/` for Chrome. Don't diff the archive files themselves: `web-ext` records timestamps, so two builds of identical code still produce different archives. The JavaScript output depends on the pinned esbuild version, not on the operating system or the Node.js version.
 
-The build tools are esbuild 0.28.2 (MIT) and web-ext 10.8.0 (MPL-2.0), installed from npm as dev dependencies. No build step uses a commercial or web-based tool, and the extension loads no remote code at runtime. Package this repository as the source archive without `dist/`, `node_modules/`, `web-ext-artifacts/`, `released/`, or `.git/`; all of them are generated or local.
+The build tools are esbuild 0.28.2 (MIT), web-ext 10.8.0 (MPL-2.0), and extension.js 4.4.0 (MIT), installed from npm as dev dependencies. No build step uses a commercial or web-based tool, and the extension loads no remote code at runtime. Package this repository as the source archive without `dist/`, `node_modules/`, `web-ext-artifacts/`, `released/`, or `.git/`; all of them are generated or local.
 
-The version is read from `src/manifest.json`. Bump it there, and in `package.json`, before every upload, because AMO rejects a version number that already exists.
+The version is read from `src/manifest.json`. Bump it there and in `package.json` before every upload, because AMO and the Chrome Web Store reject a version number that already exists.
 
 ## Disclaimer
 

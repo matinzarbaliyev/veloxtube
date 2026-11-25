@@ -83,6 +83,10 @@ During that day, exntension is finally being approved!!!
 
 - **Removal of AI Video Summaries**. Now users can hide AI Video Summaries of the video from search feed.
 
+## 25 November 2026
+- **Chrome and Chromium Support** — VeloxTube now ships a dedicated Chrome MV3 build through extension.js, with the same feature toggles and removal registry as the Firefox build.
+- **Version 0.10.0** — Documentation, manifest, and package metadata now cover both Firefox and Chromium builds.
+
 ## Status
 - Sidebar related scripts: ✅
 - Video page related scripts: ✅
