@@ -8,13 +8,14 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "node scripts/build.mjs && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts --overwrite-dest && node scripts/release.mjs",
+    "build": "node scripts/build.mjs && web-ext build --source-dir=dist --artifacts-dir=web-ext-artifacts --overwrite-dest --ignore-files=chrome && node scripts/release.mjs",
     "watch": "node scripts/build.mjs --watch",
-    "lint": "eslint . && tsc --noEmit && web-ext lint --source-dir=dist",
+    "lint": "eslint . && tsc --noEmit && web-ext lint --source-dir=dist --ignore-files=chrome",
     "format": "prettier --write .",
     "dev": "node scripts/build.mjs && node scripts/dev.mjs",
     "dev:chrome": "extension dev --browser=chrome",
-    "build:chrome": "extension build --browser=chrome --zip"
+    "build:chrome": "extension build --browser=chrome --zip",
+    "build:all": "npm run build && npm run build:chrome"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

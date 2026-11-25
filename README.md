@@ -36,6 +36,14 @@ Load the built extension temporarily:
 
 `npm run dev` starts a watch build and launches Firefox with the extension loaded.
 
+### Chrome
+
+1. `npm ci`
+2. `npm run build:chrome`
+3. Open `chrome://extensions`, enable Developer mode, choose "Load unpacked", and select `dist/chrome`.
+
+Do not load `dist/` in Chrome; it is the Firefox build and keeps Firefox-only manifest keys. `npm run build:all` builds both targets, and `npm run dev:chrome` starts the Chrome dev server.
+
 ## Building from source
 
 The release archive contains bundled and minified JavaScript, so reviewers have to rebuild it from this repository to read the source.

@@ -9,7 +9,12 @@ const entryPoints = (await readdir("src", { recursive: true }))
   .map((file) => join("src", file));
 
 if (!watch) {
-  await rm("dist", { recursive: true, force: true });
+  const entries = await readdir("dist").catch(() => []);
+  await Promise.all(
+    entries
+      .filter((entry) => entry !== "chrome")
+      .map((entry) => rm(join("dist", entry), { recursive: true, force: true })),
+  );
 }
 
 await mkdir("dist", { recursive: true });
